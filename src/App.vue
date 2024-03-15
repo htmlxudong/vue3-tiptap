@@ -1,11 +1,11 @@
 <template>
-	<div class="id">
+	<div class="wrapper">
 		<x-tiptap />
 	</div>
 </template>
 <script setup></script>
 <style scoped>
-.id {
+.wrapper {
 	padding: 80px 20px;
 }
 </style>
