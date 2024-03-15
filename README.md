@@ -25,7 +25,7 @@ git clone https://gitee.com/xd_web/vue3-tiptap.git
 ## 安装依赖 📦
 
 ```
-npm install
+pnpm install or npm install
 
 ```
 
