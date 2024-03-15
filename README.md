@@ -38,7 +38,7 @@ npm run dev
 
 <p>
   <a href="#" target="_blank" rel="noopener noreferrer">
-    <img width="80%" src="./public/editor.png" alt="vue3-editor"/>
+    <img width="100%" src="./public/editor.png" alt="vue3-editor"/>
   </a>
 </p>
 
