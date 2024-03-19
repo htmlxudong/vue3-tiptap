@@ -14,6 +14,7 @@
     font-size: 22px;
 		color: #72aaab;
 	}
+	margin: 0 auto;
 	width: 80%;
 	padding: 60px 20px;
 }
