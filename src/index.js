@@ -1,4 +1,4 @@
-import XTiptap from "./components/editor/index.vue";
+import XTiptap from "./components/index.vue";
 
 const XTiptapPlugin = {
 	install(app) {
