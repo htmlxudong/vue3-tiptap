@@ -1,5 +1,5 @@
 <template>
-	<div class="wrapper">
+	<div class="wrapper">1
 		<x-tiptap />
 	</div>
 </template>
