@@ -1,7 +1,5 @@
 import { ImageDisplay } from "./image";
 
-export const ELEMENT_TIPTAP_TIP = "[Element-Tiptap Tip]";
-
 export const Alignment = {
 	left: "left",
 	center: "center",

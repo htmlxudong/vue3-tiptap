@@ -1,5 +1,5 @@
 import { clamp } from "@/utils/index";
-import { TextSelection, AllSelection, Transaction } from "@tiptap/pm/state";
+import { TextSelection, AllSelection } from "@tiptap/pm/state";
 import { isList } from "@tiptap/core";
 
 export const IndentProps = {
