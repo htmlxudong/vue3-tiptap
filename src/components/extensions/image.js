@@ -1,7 +1,7 @@
 import { Editor } from "@tiptap/core";
 import { VueNodeViewRenderer } from "@tiptap/vue-3";
 import TiptapImage from "@tiptap/extension-image";
-import ImageView from "../components/extensions/ImageView.vue";
+import ImageView from "../component/extensions/ImageView.vue";
 import { ImageDisplay } from "@/utils/image";
 import {
 	DEFAULT_IMAGE_WIDTH,

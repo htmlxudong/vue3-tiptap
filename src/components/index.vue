@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import MenuButtons from "./components/menu-buttons/index.vue";
+import MenuButtons from "./component/menu-buttons/index.vue";
 import { onBeforeUnmount, reactive, ref, provide } from "vue";
 
 import Highlight from "@tiptap/extension-highlight";

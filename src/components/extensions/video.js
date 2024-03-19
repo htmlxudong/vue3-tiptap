@@ -1,6 +1,6 @@
 import { Node, mergeAttributes } from "@tiptap/core";
 import { VueNodeViewRenderer } from "@tiptap/vue-3";
-import VideoView from "../components/extensions/VideoView.vue";
+import VideoView from "../component/extensions/VideoView.vue";
 import { DEFAULT_VIDEO_WIDTH } from "@/utils/constant";
 
 const Video = Node.create({

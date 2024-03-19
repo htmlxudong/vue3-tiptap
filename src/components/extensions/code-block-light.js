@@ -1,6 +1,6 @@
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import { VueNodeViewRenderer } from "@tiptap/vue-3";
-import CodeBlockView from "../components/extensions/CodeBlockView.vue";
+import CodeBlockView from "../component/extensions/CodeBlockView.vue";
 
 const CodeBlockLights = CodeBlockLowlight.extend({
 	name: "CodeBlockLights",

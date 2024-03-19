@@ -1,6 +1,6 @@
 import { Node, mergeAttributes } from "@tiptap/core";
 import { VueNodeViewRenderer } from "@tiptap/vue-3";
-import IframeView from "../components/extensions/IframeView.vue";
+import IframeView from "../component/extensions/IframeView.vue";
 
 const Iframe = Node.create({
 	name: "iframe",
