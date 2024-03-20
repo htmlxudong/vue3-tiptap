@@ -7,8 +7,6 @@ export const Alignment = {
 	justify: "justify"
 };
 
-export const DEFAULT_IMAGE_URL_REGEX =
-	/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/;
 export const DEFAULT_IMAGE_WIDTH = 200;
 export const DEFAULT_IMAGE_DISPLAY = ImageDisplay.INLINE;
 export const LINE_HEIGHT_100 = 1.7;
@@ -25,4 +23,3 @@ export const enums = {
 	DROP: "drop",
 	UPDATE: "update"
 };
-

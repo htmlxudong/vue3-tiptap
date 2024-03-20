@@ -6,7 +6,6 @@ import { ImageDisplay } from "@/utils/image";
 import {
 	DEFAULT_IMAGE_WIDTH,
 	DEFAULT_IMAGE_DISPLAY,
-	DEFAULT_IMAGE_URL_REGEX
 } from "@/utils/constant";
 
 const Images = TiptapImage.extend({
