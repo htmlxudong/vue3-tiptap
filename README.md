@@ -6,7 +6,7 @@
 
 # Vue 3 + Tiptap ⚡
 
-> 该仓库主要学习基于 Vue3 + Tiptap 封装一个富文本编辑器
+> 基于 Vue3 +Ant-Design-Vue+Tiptap 二次开发一个富文本编辑器
 
 <!-- [在线预览 github](https://xxx.github.io/xxxxx) -->
 
