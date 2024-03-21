@@ -39,121 +39,99 @@
 	</node-view-wrapper>
 </template>
 
-<script>
-import { defineComponent } from "vue";
+<script setup>
+import { ref, reactive, computed, onMounted } from "vue";
 import { NodeViewWrapper, nodeViewProps } from "@tiptap/vue-3";
 import { DeleteOutlined } from "@ant-design/icons-vue";
 import { clamp } from "@/utils/";
 
+const props = defineProps(nodeViewProps);
 const MIN_SIZE = 20;
 const MAX_SIZE = 4000;
-export default defineComponent({
-	name: "VideoView",
-	data() {
-		return {
-			resizeStatus: false,
-			resizing: false,
-			displayCollection: ["left", "center", "right"],
-			originSize: {
-				width: 0,
-				height: 0
-			},
-			resizerAttrs: {
-				w: 0,
-				h: 0,
-				x: 0,
-				y: 0,
-				dir: ""
-			}
-		};
-	},
-	props: nodeViewProps,
-	computed: {
-		src() {
-			return this.node.attrs.src;
-		},
-		width() {
-			return this.node.attrs.width;
-		},
-		height() {
-			return this.node.attrs.height;
-		},
-		display() {
-			return this.node.attrs.display;
-		}
-	},
-	mounted() {
-		const { width, height } = this.$refs.videoRef.getBoundingClientRect();
-		this.originSize.width = width;
-		this.originSize.height = height;
-	},
-	methods: {
-		onMouseDown(e, dir) {
-			e.stopPropagation();
-			e.preventDefault();
 
-			const aspectRatio = this.originSize.width / this.originSize.height;
-
-			let { width, height } = this.node.attrs;
-
-			if (width && !height) {
-				height = Math.round(width / aspectRatio);
-			} else if (!width && height) {
-				width = Math.round(height * aspectRatio);
-			} else if (!width && !height) {
-				width = this.originSize.width;
-			}
-
-			this.resizerAttrs.w = width;
-			this.resizerAttrs.h = height;
-			this.resizerAttrs.x = e.clientX;
-			this.resizerAttrs.y = e.clientY;
-			this.resizerAttrs.dir = dir;
-			this.resizing = true;
-
-			this.onEvents();
-		},
-		onMouseMove(e) {
-			const { x, y, w, h, dir } = this.resizerAttrs;
-
-			const translateX = (e.clientX - x) * (/l/.test(dir) ? -1 : 1);
-			const translateY = (e.clientY - y) * (/t/.test(dir) ? -1 : 1);
-
-			this.updateAttributes?.({
-				width: clamp(w + translateX, MIN_SIZE, MAX_SIZE),
-				height: Math.max(h + translateY, MIN_SIZE)
-			});
-		},
-		onMouseUp(e) {
-			e.preventDefault();
-			e.stopPropagation();
-
-			if (!this.resizing) return;
-			this.resizing = false;
-			this.resizerState = {
-				x: 0,
-				y: 0,
-				w: 0,
-				h: 0,
-				dir: ""
-			};
-
-			this.offEvents();
-		},
-		onEvents() {
-			document.addEventListener("mousemove", this.onMouseMove, true);
-			document.addEventListener("mouseup", this.onMouseUp, true);
-		},
-		offEvents() {
-			document.removeEventListener("mousemove", this.onMouseMove, true);
-			document.removeEventListener("mouseup", this.onMouseUp, true);
-		}
-	},
-	components: {
-		NodeViewWrapper,
-		DeleteOutlined
-	}
+const resizeStatus = ref(false);
+const resizing = ref(false);
+const displayCollection = reactive(["left", "center", "right"]);
+const originSize = reactive({
+	width: 0,
+	height: 0
 });
+const resizerAttrs = reactive({
+	w: 0,
+	h: 0,
+	x: 0,
+	y: 0,
+	dir: ""
+});
+
+const src = computed(() => props.node.attrs.src);
+const width = computed(() => props.node.attrs.width);
+const height = computed(() => props.node.attrs.height);
+const display = computed(() => props.node.attrs.display);
+
+const videoRef = ref();
+onMounted(() => {
+	originSize.width = videoRef.value.getBoundingClientRect().width;
+	originSize.height = videoRef.value.getBoundingClientRect().height;
+});
+
+const onMouseDown = (e, dir) => {
+	e.stopPropagation();
+	e.preventDefault();
+
+	const aspectRatio = originSize.width / originSize.height;
+
+	let { width, height } = props.node.attrs;
+
+	if (width && !height) {
+		height = Math.round(width / aspectRatio);
+	} else if (!width && height) {
+		width = Math.round(height * aspectRatio);
+	} else if (!width && !height) {
+		width = originSize.width;
+	}
+
+	resizerAttrs.w = width;
+	resizerAttrs.h = height;
+	resizerAttrs.x = e.clientX;
+	resizerAttrs.y = e.clientY;
+	resizerAttrs.dir = dir;
+	resizing.value = true;
+
+	onEvents();
+};
+
+const onMouseMove = e => {
+	const { x, y, w, h, dir } = resizerAttrs;
+
+	const translateX = (e.clientX - x) * (/l/.test(dir) ? -1 : 1);
+	const translateY = (e.clientY - y) * (/t/.test(dir) ? -1 : 1);
+
+	props.updateAttributes?.({
+		width: clamp(w + translateX, MIN_SIZE, MAX_SIZE),
+		height: Math.max(h + translateY, MIN_SIZE)
+	});
+};
+
+const onMouseUp = e => {
+	e.preventDefault();
+	e.stopPropagation();
+
+	if (!resizing.value) return;
+	resizing.value = false;
+	resizerAttrs.x = resizerAttrs.y = resizerAttrs.w = resizerAttrs.h = 0;
+	resizerAttrs.dir = "";
+	offEvents();
+};
+
+const onEvents = () => {
+	document.addEventListener("mousemove", onMouseMove, true);
+	document.addEventListener("mouseup", onMouseUp, true);
+};
+const offEvents = () => {
+	document.removeEventListener("mousemove", onMouseMove, true);
+	document.removeEventListener("mouseup", onMouseUp, true);
+};
 </script>
 
 <style lang="scss" scoped>

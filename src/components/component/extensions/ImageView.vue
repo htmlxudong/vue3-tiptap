@@ -40,160 +40,135 @@
 	</node-view-wrapper>
 </template>
 
-<script>
-import { defineComponent } from "vue";
+<script setup>
 import { NodeViewWrapper, nodeViewProps } from "@tiptap/vue-3";
-import { message } from "ant-design-vue";
-import { DeleteOutlined, EnvironmentOutlined } from "@ant-design/icons-vue";
+import { ref, reactive, computed } from "vue";
+import { DeleteOutlined } from "@ant-design/icons-vue";
 import { resolveImg } from "@/utils/image";
 import { clamp } from "@/utils/index";
+import { message } from "ant-design-vue";
+
+const props = defineProps(nodeViewProps);
 
 const MIN_SIZE = 20;
 const MAX_SIZE = 4000;
 
-export default defineComponent({
-	name: "ImageView",
-
-	data() {
-		return {
-			displayCollection: ["inline", "block", "left", "right"],
-			maxSize: {
-				width: MAX_SIZE,
-				height: MAX_SIZE
-			},
-			resizing: false,
-			resizeState: {
-				w: 0,
-				h: 0,
-				dir: "",
-				x: 0,
-				y: 0
-			},
-			resizeDirections: ["tl", "tr", "bl", "br"]
-		};
-	},
-	components: {
-		NodeViewWrapper,
-		DeleteOutlined,
-		EnvironmentOutlined
-	},
-	async created() {
-		const result = await resolveImg(this.src);
-
-		if (!result.complete) {
-			result.width = MIN_SIZE;
-			result.height = MIN_SIZE;
-		}
-
-		this.originalSize = {
-			width: result.width,
-			height: result.height
-		};
-	},
-	methods: {
-		confirm() {
-			message.info("Clicked on Yes.");
-		},
-		selectImage() {
-			this.editor?.commands.setNodeSelection(this.getPos());
-		},
-		onMouseDown(e, dir) {
-			e.stopPropagation();
-			e.preventDefault();
-
-			const originalWidth = this.originalSize.width;
-			const originalHeight = this.originalSize.height;
-			const aspectRatio = originalWidth / originalHeight; // 图片宽高比
-
-			const maxWidth = this.maxSize.width;
-
-			let { width, height } = this.node.attrs;
-
-			if (width && !height) {
-				width = width > maxWidth ? maxWidth : width;
-				height = Math.round(width / aspectRatio);
-			} else if (height && !width) {
-				width = Math.round(height * aspectRatio);
-				width = width > maxWidth ? maxWidth : width;
-			} else if (!width && !height) {
-				width = originalWidth > maxWidth ? maxWidth : originalWidth;
-				height = Math.round(width / aspectRatio);
-			} else {
-				width = width > maxWidth ? maxWidth : width;
-			}
-
-			this.resizeState.x = e.clientX;
-			this.resizeState.y = e.clientY;
-
-			this.resizeState.w = width;
-			this.resizeState.h = height;
-			this.resizeState.dir = dir;
-			this.resizing = true;
-
-			this.onEvents();
-		},
-		onMouseMove(e) {
-			e.preventDefault();
-			e.stopPropagation();
-
-			const { x, y, w, h, dir } = this.resizeState;
-
-			const dx = (e.clientX - x) * (/l/.test(dir) ? -1 : 1);
-			const dy = (e.clientY - y) * (/t/.test(dir) ? -1 : 1);
-
-			this.updateAttributes?.({
-				width: clamp(w + dx, MIN_SIZE, this.maxSize.width),
-				height: Math.max(h + dy, MIN_SIZE)
-			});
-		},
-		onMouseUp(e) {
-			e.preventDefault();
-			e.stopPropagation();
-			if (!this.resizing) return;
-
-			this.resizing = false;
-
-			this.resizerState = {
-				x: 0,
-				y: 0,
-				w: 0,
-				h: 0,
-				dir: ""
-			};
-
-			this.offEvents();
-			this.selectImage();
-		},
-		onEvents() {
-			document.addEventListener("mousemove", this.onMouseMove, true);
-			document.addEventListener("mouseup", this.onMouseUp, true);
-		},
-		offEvents() {
-			document.removeEventListener("mousemove", this.onMouseMove, true);
-			document.removeEventListener("mouseup", this.onMouseUp, true);
-		}
-	},
-
-	computed: {
-		src() {
-			return this.node.attrs.src;
-		},
-		width() {
-			return this.node.attrs.width;
-		},
-
-		height() {
-			return this.node.attrs.height;
-		},
-		display() {
-			return this.node.attrs.display;
-		},
-		imageViewClass() {
-			return ["image-view", `image-view--${this.display}`];
-		}
-	},
-	props: nodeViewProps
+const displayCollection = reactive(["inline", "block", "left", "right"]);
+const maxSize = reactive({
+	width: MAX_SIZE,
+	height: MAX_SIZE
 });
+const resizing = ref(false);
+const resizeState = reactive({
+	w: 0,
+	h: 0,
+	dir: "",
+	x: 0,
+	y: 0
+});
+const resizeDirections = reactive(["tl", "tr", "bl", "br"]);
+const originalSize = reactive({
+	width: 0,
+	height: 0
+});
+
+const src = computed(() => props.node.attrs.src);
+const width = computed(() => props.node.attrs.width);
+const height = computed(() => props.node.attrs.height);
+const display = computed(() => props.node.attrs.display);
+const imageViewClass = computed(() => ["image-view", `image-view--${display.value}`]);
+
+const loadImage = async () => {
+	const result = await resolveImg(src.value);
+
+	if (!result.complete) {
+		result.width = MIN_SIZE;
+		result.height = MIN_SIZE;
+	}
+
+	originalSize.width = result.width;
+	originalSize.height = result.height;
+};
+loadImage();
+
+const selectImage = () => {
+	props.editor?.commands.setNodeSelection(props.getPos());
+};
+
+// 图片缩放
+const onMouseDown = (e, dir) => {
+	e.stopPropagation();
+	e.preventDefault();
+
+	const originalWidth = originalSize.width;
+	const originalHeight = originalSize.height;
+	const aspectRatio = originalWidth / originalHeight; // 图片宽高比
+
+	const maxWidth = maxSize.width;
+
+	let { width, height } = props.node.attrs;
+
+	if (width && !height) {
+		width = width > maxWidth ? maxWidth : width;
+		height = Math.round(width / aspectRatio);
+	} else if (height && !width) {
+		width = Math.round(height * aspectRatio);
+		width = width > maxWidth ? maxWidth : width;
+	} else if (!width && !height) {
+		width = originalWidth > maxWidth ? maxWidth : originalWidth;
+		height = Math.round(width / aspectRatio);
+	} else {
+		width = width > maxWidth ? maxWidth : width;
+	}
+
+	resizeState.x = e.clientX;
+	resizeState.y = e.clientY;
+
+	resizeState.w = width;
+	resizeState.h = height;
+	resizeState.dir = dir;
+	resizing.value = true;
+
+	onEvents();
+};
+
+const onMouseMove = e => {
+	e.preventDefault();
+	e.stopPropagation();
+
+	const { x, y, w, h, dir } = resizeState;
+
+	const dx = (e.clientX - x) * (/l/.test(dir) ? -1 : 1);
+	const dy = (e.clientY - y) * (/t/.test(dir) ? -1 : 1);
+
+	props.updateAttributes?.({
+		width: clamp(w + dx, MIN_SIZE, maxSize.width),
+		height: Math.max(h + dy, MIN_SIZE)
+	});
+};
+
+const onMouseUp = e => {
+	e.preventDefault();
+	e.stopPropagation();
+	if (!resizing.value) return;
+
+	resizing.value = false;
+
+	resizeState.x = resizeState.y = resizeState.w = resizeState.h = 0;
+	resizeState.dir = "";
+	offEvents();
+	selectImage();
+};
+
+const onEvents = () => {
+	document.addEventListener("mousemove", onMouseMove, true);
+	document.addEventListener("mouseup", onMouseUp, true);
+};
+const offEvents = () => {
+	document.removeEventListener("mousemove", onMouseMove, true);
+	document.removeEventListener("mouseup", onMouseUp, true);
+};
+
 </script>
 
 <style lang="scss" scoped>

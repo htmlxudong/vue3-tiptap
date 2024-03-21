@@ -12,34 +12,20 @@
 	</node-view-wrapper>
 </template>
 
-<script>
+<script setup>
 import { NodeViewWrapper, nodeViewProps, NodeViewContent } from "@tiptap/vue-3";
-import { defineComponent } from "vue";
+import { ref, reactive, computed } from "vue";
 
-export default defineComponent({
-	name: "CodeBlockView",
+const props = defineProps(nodeViewProps);
+const languages = ref(props.extension.options.lowlight.listLanguages());
 
-	data() {
-		return {
-			languages: this.extension.options.lowlight.listLanguages()
-		};
+const selectedLanguage = computed({
+	get() {
+		return props.node.attrs.language;
 	},
-	computed: {
-		selectedLanguage: {
-			get() {
-				return this.node.attrs.language;
-			},
-			set(language) {
-				this.updateAttributes({ language });
-			}
-		}
-	},
-	methods: {},
-	components: {
-		NodeViewWrapper,
-		NodeViewContent
-	},
-	props: nodeViewProps
+	set(language) {
+		props.updateAttributes({ language });
+	}
 });
 </script>
 

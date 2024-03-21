@@ -4,21 +4,12 @@
 	</node-view-wrapper>
 </template>
 
-<script>
-import { defineComponent } from "vue";
+<script setup>
 import { NodeViewWrapper, nodeViewProps } from "@tiptap/vue-3";
-
-export default defineComponent({
-	name: "IframeView",
-	components: {
-		NodeViewWrapper
-	},
-
-	props: nodeViewProps
-});
+const props = defineProps(nodeViewProps);
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .iframe {
 	height: 0;
 	padding-bottom: 56.25%;
