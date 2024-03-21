@@ -7,8 +7,9 @@
     <img width="100%" src="./public/editor.png" alt="vue3-editor"/>
   </a>
 </p>
-
-[在线预览 github](https://htmlxudong.github.io/index.html)
+ <a href="[#](https://htmlxudong.github.io/index.html)" target="_blank" rel="noopener noreferrer">
+[在线预览 github]
+</a>
 
 ## 克隆代码到本地
 
@@ -35,8 +36,6 @@ pnpm install or npm install
 npm run dev
 
 ```
-
-
 
 ## 技术栈 🥇
 
