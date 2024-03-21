@@ -8,7 +8,7 @@
 
 > 基于 Vue3 +Ant-Design-Vue+Tiptap 二次开发一个富文本编辑器
 
-<!-- [在线预览 github](https://xxx.github.io/xxxxx) -->
+[在线预览 github](https://htmlxudong.github.io/index.html)
 
 ## 克隆代码到本地
 
