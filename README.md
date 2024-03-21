@@ -3,7 +3,7 @@
 > 基于 Vue3 +Ant-Design-Vue+Tiptap 二次开发一个富文本编辑器
 
 <p>
-  <a href="#" target="_blank" rel="noopener noreferrer">
+  <a href="https://htmlxudong.github.io/index.html" target="_blank" rel="noopener noreferrer">
     <img width="100%" src="./public/editor.png" alt="vue3-editor"/>
   </a>
 </p>
