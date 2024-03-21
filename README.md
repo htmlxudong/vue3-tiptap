@@ -1,12 +1,12 @@
-<p align="center">
-  <a href="#" target="_blank" rel="noopener noreferrer">
-    <img width="180" src=".//public/facio.png" alt="logo">
-  </a>
-</p>
-
 # Vue 3 + Tiptap ⚡
 
 > 基于 Vue3 +Ant-Design-Vue+Tiptap 二次开发一个富文本编辑器
+
+<p>
+  <a href="#" target="_blank" rel="noopener noreferrer">
+    <img width="100%" src="./public/editor.png" alt="vue3-editor"/>
+  </a>
+</p>
 
 [在线预览 github](https://htmlxudong.github.io/index.html)
 
@@ -36,11 +36,7 @@ npm run dev
 
 ```
 
-<p>
-  <a href="#" target="_blank" rel="noopener noreferrer">
-    <img width="100%" src="./public/editor.png" alt="vue3-editor"/>
-  </a>
-</p>
+
 
 ## 技术栈 🥇
 
