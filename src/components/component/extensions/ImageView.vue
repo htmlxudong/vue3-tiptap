@@ -29,7 +29,7 @@
 
 			<div class="image-resizer" v-show="resizing || selected">
 				<span
-					v-for="direction in ['tl', 'tr', 'bl', 'br']"
+					v-for="direction in resizeDirections"
 					:key="direction"
 					:class="`image-resizer__handler--${direction}`"
 					class="image-resizer__handler"
