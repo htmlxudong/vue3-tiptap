@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
+import { ref, reactive ,inject} from "vue";
 import { VideoCameraOutlined } from "@ant-design/icons-vue";
 import { validateUrl } from "@/utils/pattern.js";
 
@@ -51,6 +51,7 @@ const headers = [
 	}
 ];
 
+const editorContext = inject("editorContext");
 const insertRef = ref();
 const uploadRef = ref();
 const handleEmit = async ({ url, file, type }) => {
