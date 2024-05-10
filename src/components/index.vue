@@ -79,13 +79,9 @@ const editor = useEditor({
 	autofocus: "end"
 });
 
-const editorContext = reactive({
-	uploadImg(file) {
-		console.log(file, "file");
-	}
-});
-provide('editorContext',editorContext)
+const props = defineProps(["events"]);
 
+provide("editorContext", props.events);
 
 onBeforeUnmount(() => {
 	editor.value?.destroy();

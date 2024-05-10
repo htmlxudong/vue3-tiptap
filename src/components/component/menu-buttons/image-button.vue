@@ -53,11 +53,10 @@ const headers = [
 const editorContext = inject("editorContext");
 const insertRef = ref();
 const uploadRef = ref();
-const handleEmit = ({ url, type }) => {
-	if (type === "uplpoad") {
-		editorContext.uploadImg(url);
+const handleEmit = async ({ url, file, type }) => {
+	if (type === "upload") {
+		const res = await editorContext.uploadImg(file);
 	}
-
 	props.editor.chain().focus().setImage({ src: url }).run();
 	uploadRef.value.closeModal();
 	insertRef.value.closeModal();
