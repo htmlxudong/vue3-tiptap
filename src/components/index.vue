@@ -40,6 +40,9 @@ import Video from "./extensions/video";
 import CustomTableCell from "./extensions/table";
 import Indent from "./extensions/indent";
 
+const emit = defineEmits(["update:content", "update"]);
+const props = defineProps(["events", "content"]);
+
 const isFullScreen = ref(false);
 const toggleFullscreen = () => {
 	isFullScreen.value = !isFullScreen.value;
@@ -47,9 +50,8 @@ const toggleFullscreen = () => {
 provide("isFullScreen", isFullScreen.value);
 provide("toggleFullscreen", toggleFullscreen);
 
-const valueHtml = ref("<p>I’m running Tiptap with Vue.js. 🎉</p>");
 const editor = useEditor({
-	content: valueHtml.value,
+	content: props.content,
 	extensions: [
 		Highlight.configure({
 			multicolor: true
@@ -78,8 +80,6 @@ const editor = useEditor({
 	],
 	autofocus: "end"
 });
-
-const props = defineProps(["events"]);
 
 provide("editorContext", props.events);
 

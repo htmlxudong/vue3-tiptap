@@ -1,7 +1,7 @@
 <template>
 	<div class="wrapper">
 		<h1 class="title">💐 Vue3 + Tiptap 🚀</h1>
-		<x-tiptap :events="editorEvents" />
+		<x-tiptap :events="editorEvents" v-model:content="valueHtml" />
 	</div>
 </template>
 <script setup>
@@ -13,6 +13,8 @@ const editorEvents = reactive({
 		return file;
 	}
 });
+
+const valueHtml = ref("<p>I’m running Tiptap with Vue.js. 🎉</p>");
 </script>
 <style scoped lang="scss">
 .wrapper {

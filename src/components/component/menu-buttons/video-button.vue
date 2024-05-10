@@ -53,7 +53,10 @@ const headers = [
 
 const insertRef = ref();
 const uploadRef = ref();
-const handleEmit = ({ url }) => {
+const handleEmit = async ({ url, file, type }) => {
+	if (type === "upload") {
+		const res = await editorContext.uploadImg(file);
+	}
 	props.editor.chain().focus().setVideo({ src: url }).run();
 	uploadRef.value.closeModal();
 	insertRef.value.closeModal();
