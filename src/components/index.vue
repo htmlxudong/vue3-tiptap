@@ -7,7 +7,7 @@
 
 <script setup>
 import MenuButtons from "./component/menu-buttons/index.vue";
-import { onBeforeUnmount, ref, provide } from "vue";
+import { onBeforeUnmount, ref, provide, reactive } from "vue";
 
 import Highlight from "@tiptap/extension-highlight";
 import TiptapUnderline from "@tiptap/extension-underline";
@@ -78,6 +78,14 @@ const editor = useEditor({
 	],
 	autofocus: "end"
 });
+
+const editorContext = reactive({
+	uploadImg(file) {
+		console.log(file, "file");
+	}
+});
+provide('editorContext',editorContext)
+
 
 onBeforeUnmount(() => {
 	editor.value?.destroy();

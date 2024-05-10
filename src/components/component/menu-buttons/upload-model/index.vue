@@ -55,7 +55,7 @@ const beforeUpload = async file => {
 
 	if (isJpgOrPng || isVideoType || isPDF) {
 		const imgBase64 = await _getBase64(file);
-		emit("emitUpload", { url: imgBase64 });
+		emit("emitUpload", { url: imgBase64, file, type: "upload" });
 	}
 
 	return false;

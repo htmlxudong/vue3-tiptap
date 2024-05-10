@@ -65,7 +65,7 @@ const closeModal = () => {
 
 const handleOk = e => {
 	formRef.value.validateFields().then(res => {
-		emit("emitInsert", forms);
+		emit("emitInsert", { ...forms, type: "insert" });
 		closeModal();
 	});
 };
