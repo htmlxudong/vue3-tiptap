@@ -1,13 +1,13 @@
 <template>
 	<div class="wrapper">
 		<h1 class="title">💐 Vue3 + Tiptap 🚀</h1>
-		<x-tiptap :events="editorContext" />
+		<x-tiptap :events="editorEvents" />
 	</div>
 </template>
 <script setup>
 import { ref, reactive } from "vue";
 
-const editorContext = reactive({
+const editorEvents = reactive({
 	uploadImg(file) {
 		console.log(file, "file");
 		return file;
