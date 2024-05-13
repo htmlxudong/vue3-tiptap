@@ -5,16 +5,20 @@
 	</div>
 </template>
 <script setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, watch } from "vue";
 
 const editorEvents = reactive({
-	uploadImg(file) {
-		console.log(file, "file");
-		return file;
-	}
+	uploadImg(file) {}
 });
 
 const valueHtml = ref("<p>I’m running Tiptap with Vue.js. 🎉</p>");
+
+watch(
+	() => valueHtml.value,
+	value => {
+		console.log(value);
+	}
+);
 </script>
 <style scoped lang="scss">
 .wrapper {

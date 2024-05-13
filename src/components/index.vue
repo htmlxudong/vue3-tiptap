@@ -50,6 +50,12 @@ const toggleFullscreen = () => {
 provide("isFullScreen", isFullScreen.value);
 provide("toggleFullscreen", toggleFullscreen);
 
+const onUpdate = ({ editor }) => {
+	const output = editor.getHTML();
+
+	emit("update:content", output);
+	emit("update", output, editor);
+};
 const editor = useEditor({
 	content: props.content,
 	extensions: [
@@ -78,7 +84,8 @@ const editor = useEditor({
 		CustomTableCell,
 		Video
 	],
-	autofocus: "end"
+	autofocus: "end",
+	onUpdate
 });
 
 provide("editorContext", props.events);
