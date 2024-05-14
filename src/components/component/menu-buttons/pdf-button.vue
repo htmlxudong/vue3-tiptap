@@ -25,7 +25,7 @@
 		:options="{ title: '插入PDF地址', placeholder: 'URL of PDF', headers }"
 	>
 		<a-form-item name="type" label="插入类型">
-			<a-radio-group v-model:value="type" button-style="solid">
+			<a-radio-group v-model:value="showType" button-style="solid">
 				<a-radio-button :value="1">附件形式</a-radio-button>
 				<a-radio-button :value="2">内容形式</a-radio-button>
 			</a-radio-group>
@@ -60,8 +60,9 @@ const headers = [
 	}
 ];
 
-const type = ref(1);
-const handleEmit = async forms => {
+const editorContext = inject("editorContext");
+const showType = ref(1);
+const handleEmit = async ({ url, file, type }) => {
 	console.log(type);
 	if (type === "upload") {
 		await editorContext.uploadPdf(file, src => {
@@ -92,7 +93,7 @@ const handleEmit = async forms => {
 };
 
 const insertLocalPdf = () => {
-	type.value = 2;
+	showType.value = 2;
 	uploadRef.value.showModal();
 };
 </script>
