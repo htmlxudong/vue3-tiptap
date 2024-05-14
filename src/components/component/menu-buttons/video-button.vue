@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import { ref, reactive ,inject} from "vue";
+import { ref, reactive, inject } from "vue";
 import { VideoCameraOutlined } from "@ant-design/icons-vue";
 import { validateUrl } from "@/utils/pattern.js";
 
@@ -56,7 +56,11 @@ const insertRef = ref();
 const uploadRef = ref();
 const handleEmit = async ({ url, file, type }) => {
 	if (type === "upload") {
-		const res = await editorContext.uploadImg(file);
+		await editorContext.uploadImg(file, src => {
+			props.editor.chain().focus().setImage({ src }).run();
+		});
+	} else {
+		props.editor.chain().focus().setImage({ src: url }).run();
 	}
 	props.editor.chain().focus().setVideo({ src: url }).run();
 	uploadRef.value.closeModal();

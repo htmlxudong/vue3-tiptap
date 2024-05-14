@@ -55,9 +55,13 @@ const insertRef = ref();
 const uploadRef = ref();
 const handleEmit = async ({ url, file, type }) => {
 	if (type === "upload") {
-		const res = await editorContext.uploadImg(file);
+		await editorContext.uploadImg(file, src => {
+			props.editor.chain().focus().setImage({ src }).run();
+		});
+	} else {
+		props.editor.chain().focus().setImage({ src: url }).run();
 	}
-	props.editor.chain().focus().setImage({ src: url }).run();
+
 	uploadRef.value.closeModal();
 	insertRef.value.closeModal();
 };

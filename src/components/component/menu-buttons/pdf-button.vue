@@ -61,25 +61,32 @@ const headers = [
 ];
 
 const type = ref(1);
-const handleEmit = forms => {
-	const { url } = forms;
-	if (type.value === 1) {
-		props.editor.commands.insertContent({
-			type: "text",
-			text: `附件:${url}`,
-			marks: [
-				{
-					type: "link",
-					attrs: {
-						href: url
-					}
-				}
-			]
+const handleEmit = async forms => {
+	console.log(type);
+	if (type === "upload") {
+		await editorContext.uploadPdf(file, src => {
+			props.editor.chain().focus().setIframe({ src: url }).run();
 		});
+	} else {
+		if (showType.value === 1) {
+			props.editor.commands.insertContent({
+				type: "text",
+				text: `附件:${url}`,
+				marks: [
+					{
+						type: "link",
+						attrs: {
+							href: url
+						}
+					}
+				]
+			});
+		}
+		if (showType.value === 2) {
+			props.editor.chain().focus().setIframe({ src: url }).run();
+		}
 	}
-	if (type.value === 2) {
-		props.editor.chain().focus().setIframe({ src: url }).run();
-	}
+
 	uploadRef.value.closeModal();
 	insertRef.value.closeModal();
 };

@@ -7,9 +7,18 @@
 <script setup>
 import { ref, reactive, watch } from "vue";
 
-const editorEvents = reactive({
-	uploadImg(file) {}
-});
+const editorEvents = {
+	/**
+	 * @param file 上传图片文件
+	 * @param insertFun 插入到富文本回调函数
+	 */
+	async uploadImg(file, insertFun) {},
+	/**
+	 * @param file 上传PDF文件
+	 * @param insertFun 插入到富文本回调函数
+	 */
+	async uploadPdf(file, insertFun) {}
+};
 
 const valueHtml = ref("<p>I’m running Tiptap with Vue.js. 🎉</p>");
 

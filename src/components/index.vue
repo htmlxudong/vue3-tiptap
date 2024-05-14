@@ -52,7 +52,6 @@ provide("toggleFullscreen", toggleFullscreen);
 
 const onUpdate = ({ editor }) => {
 	const output = editor.getHTML();
-
 	emit("update:content", output);
 	emit("update", output, editor);
 };
