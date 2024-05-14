@@ -35,7 +35,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, inject } from "vue";
 import { validateUrl } from "@/utils/pattern.js";
 import { FilePdfOutlined, CloudUploadOutlined, DisconnectOutlined } from "@ant-design/icons-vue";
 import InsertPDF from "./insert-model/index.vue";
