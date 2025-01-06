@@ -107,6 +107,6 @@ const onChangeForms = newColor => {
 
 <style lang="scss" scoped>
 .color-picker {
-	width: 320px;
+	width: 300px;
 }
 </style>

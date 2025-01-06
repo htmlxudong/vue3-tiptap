@@ -16,6 +16,7 @@
 					<div class="color-box" :style="{ background: color }"></div>
 				</li>
 			</ul>
+
 			<a-popover placement="right">
 				<template #content>
 					<ColorPicker @updateColor="onUpdateColor" />
