@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@ant-design/icons-vue": "^7.0.1",
+    "@ctrl/tinycolor": "^4.1.0",
+    "@swiftcarrot/color-fns": "^3.2.0",
     "@tiptap/core": "^2.2.4",
     "@tiptap/extension-bubble-menu": "^2.2.4",
     "@tiptap/extension-code-block-lowlight": "^2.2.4",
