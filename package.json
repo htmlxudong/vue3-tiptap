@@ -30,6 +30,7 @@
     "@tiptap/starter-kit": "^2.2.1",
     "@tiptap/vue-3": "^2.2.1",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
+    "@vueuse/core": "^12.3.0",
     "ant-design-vue": "^4.1.2",
     "lowlight": "^2.7.0",
     "pnpm": "^8.15.4",

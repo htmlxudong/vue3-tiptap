@@ -29,7 +29,7 @@ const icon = computed(() => getIcon(props.name));
 
 const style = computed(() => {
 	return {
-		...(props.size ? { fontSize: addUnit(props.size) } : {}),
+		...(props.size ? { fontSize: addUnit(props.size) } : { fontSize: "16px" }),
 		...(props.color ? { fill: props.color } : {})
 	};
 });

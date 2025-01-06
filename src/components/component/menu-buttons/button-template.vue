@@ -8,7 +8,8 @@
 			@click="option.click"
 			@dblclick="option.dblclick"
 		>
-			<Icon :name="option.component" />
+			<component :is="option.component" style="font-size: 16px; font-weight: 600" />
+			<!-- <Icon :name="option.component" /> -->
 		</div>
 	</a-tooltip>
 </template>
