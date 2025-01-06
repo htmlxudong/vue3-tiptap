@@ -1,5 +1,11 @@
 <template>
 	<div class="editor-tools">
+		<!-- 撤销 -->
+		<ButtonTemplate :editor="editor" :option="undo" />
+		<!-- 重做 -->
+		<ButtonTemplate :editor="editor" :option="redo" />
+		<!-- 格式刷 -->
+		<FormatBrush :editor="editor" />
 		<HeaderButton v-model="title" />
 		<ImageButton :editor="editor" />
 		<VideoButton :editor="editor" />
@@ -24,6 +30,8 @@
 <script>
 import { BubbleMenu } from "@tiptap/vue-3";
 import ToolButton from "./tool-button.vue";
+import ButtonTemplate from "./button-template.vue";
+import FormatBrush from "./format-brush.vue";
 import { getMarkRange, Editor } from "@tiptap/core";
 import { TextSelection, AllSelection } from "@tiptap/pm/state";
 
@@ -251,12 +259,32 @@ export default defineComponent({
 			}
 		]);
 
+		const undo = {
+			name: "UndoOutlined",
+			component: "undo",
+			tip: "撤销",
+			click() {
+				props.editor.chain().focus().undo().run();
+			},
+			active: false
+		};
+		const redo = {
+			name: "RedoOutlined",
+			component: "redo",
+			tip: "重做",
+			click() {
+				props.editor.chain().focus().redo().run();
+			},
+			active: false
+		};
 		return {
 			bubbleMenuTools,
 			title,
 			editorTools,
 			isFullScreen,
-			activeMenu
+			activeMenu,
+			undo,
+			redo
 		};
 	},
 	methods: {
@@ -305,7 +333,9 @@ export default defineComponent({
 		ClearOutlined,
 		OrderedListOutlined,
 		FontColor,
-		BgColor
+		BgColor,
+		ButtonTemplate,
+		FormatBrush
 	}
 });
 </script>
