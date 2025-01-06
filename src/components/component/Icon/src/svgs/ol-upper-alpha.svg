@@ -1,0 +1,18 @@
+<svg width="24.000000" height="24.000000" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>
+			Created with Pixso.
+	</desc>
+	<defs>
+		<clipPath id="clip21_1661">
+			<rect id="svg" width="24.000000" height="24.000000" fill="white" fill-opacity="0"/>
+		</clipPath>
+	</defs>
+	<g clip-path="url(#clip21_1661)">
+		<path id="矢量 4" d="M9.46 3L22.4 3C22.69 3 22.93 3.22 22.93 3.5C22.93 3.77 22.69 4 22.4 4L9.46 4C9.16 4 8.93 3.77 8.93 3.5C8.93 3.22 9.16 3 9.46 3Z" fill="#666666" fill-opacity="1.000000" fill-rule="evenodd"/>
+		<path id="矢量 29" d="M9.46 11L22.4 11C22.69 11 22.93 11.22 22.93 11.5C22.93 11.78 22.69 12 22.4 12L9.46 12C9.16 12 8.93 11.78 8.93 11.5C8.93 11.22 9.16 11 9.46 11Z" fill="#666666" fill-opacity="1.000000" fill-rule="evenodd"/>
+		<path id="矢量 30" d="M9.46 19L22.4 19C22.69 19 22.93 19.21 22.93 19.5C22.93 19.78 22.69 20 22.4 20L9.46 20C9.16 20 8.93 19.78 8.93 19.5C8.93 19.21 9.16 19 9.46 19Z" fill="#666666" fill-opacity="1.000000" fill-rule="evenodd"/>
+		<circle id="椭圆 64" cx="4.500000" cy="4.255127" r="0.500000" fill="#666666" fill-opacity="1.000000"/>
+		<circle id="椭圆 65" cx="4.500000" cy="12.238037" r="0.500000" fill="#666666" fill-opacity="1.000000"/>
+		<circle id="椭圆 66" cx="4.500000" cy="19.834106" r="0.500000" fill="#666666" fill-opacity="1.000000"/>
+	</g>
+</svg>

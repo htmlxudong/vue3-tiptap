@@ -16,6 +16,21 @@
 					<div class="color-box" :style="{ background: color }"></div>
 				</li>
 			</ul>
+
+			<a-popover placement="right">
+				<template #content>
+					<ColorPicker @updateColor="onUpdateColor" />
+				</template>
+				<div class="color-more">
+					<div class="color-circle">
+						<Icon name="color-picker" />
+						更多颜色
+					</div>
+					<div>
+						<Icon name="caret-right" />
+					</div>
+				</div>
+			</a-popover>
 		</template>
 		<a-tooltip placement="top">
 			<template #title> <span>文字颜色</span> </template>
@@ -39,14 +54,22 @@
 import { getTextColor } from "./cells";
 import { ref, reactive, computed } from "vue";
 import { FontColorsOutlined, CaretDownOutlined } from "@ant-design/icons-vue";
+import Icon from "../../component/Icon/src/Icon.vue";
+import ColorPicker from "../../component/color-picker/color-picker.vue";
+
 const props = defineProps(["editor"]);
 const colors = reactive(getTextColor());
-
+const currentColor = ref("#ffffff");
 const currentIndex = ref(0);
 
 const toggleColor = (color, index) => {
 	currentIndex.value = index;
 	props.editor.chain().focus().setColor(color).run();
+};
+
+const onUpdateColor = color => {
+	currentColor.value = `#${color}`;
+	props.editor.chain().focus().setColor(`#${color}`).run();
 };
 </script>
 
@@ -55,6 +78,7 @@ const toggleColor = (color, index) => {
 	border: 1px solid rgba(0, 0, 0, 0.6) !important;
 }
 .colors-palette {
+	list-style: none;
 	width: 230px;
 	display: flex;
 	flex-wrap: wrap;
@@ -74,6 +98,25 @@ const toggleColor = (color, index) => {
 			width: 17px;
 			height: 17px;
 		}
+	}
+}
+
+.color-more {
+	cursor: pointer;
+	width: 100%;
+	padding: 5px 0;
+	border-top: 1px solid #eee;
+	display: flex;
+	justify-content: space-between;
+	background: transparent;
+	transition: background 0.3s;
+	&:hover {
+		background: #e8e8e8;
+	}
+	.color-circle {
+		display: flex;
+		column-gap: 5px;
+		align-items: center;
 	}
 }
 </style>

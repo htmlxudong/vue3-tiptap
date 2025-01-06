@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, inject } from "vue";
 import { PictureOutlined, CloudUploadOutlined, PaperClipOutlined } from "@ant-design/icons-vue";
 import { validateUrl } from "@/utils/pattern.js";
 import InsertImage from "./insert-model/index.vue";
@@ -50,10 +50,18 @@ const headers = [
 	}
 ];
 
+const editorContext = inject("editorContext");
 const insertRef = ref();
 const uploadRef = ref();
-const handleEmit = ({ url }) => {
-	props.editor.chain().focus().setImage({ src: url }).run();
+const handleEmit = async ({ url, file, type }) => {
+	if (type === "upload") {
+		await editorContext.uploadImg(file, src => {
+			props.editor.chain().focus().setImage({ src }).run();
+		});
+	} else {
+		props.editor.chain().focus().setImage({ src: url }).run();
+	}
+
 	uploadRef.value.closeModal();
 	insertRef.value.closeModal();
 };

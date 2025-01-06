@@ -25,7 +25,7 @@
 		:options="{ title: '插入PDF地址', placeholder: 'URL of PDF', headers }"
 	>
 		<a-form-item name="type" label="插入类型">
-			<a-radio-group v-model:value="type" button-style="solid">
+			<a-radio-group v-model:value="showType" button-style="solid">
 				<a-radio-button :value="1">附件形式</a-radio-button>
 				<a-radio-button :value="2">内容形式</a-radio-button>
 			</a-radio-group>
@@ -35,7 +35,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, inject } from "vue";
 import { validateUrl } from "@/utils/pattern.js";
 import { FilePdfOutlined, CloudUploadOutlined, DisconnectOutlined } from "@ant-design/icons-vue";
 import InsertPDF from "./insert-model/index.vue";
@@ -60,32 +60,40 @@ const headers = [
 	}
 ];
 
-const type = ref(1);
-const handleEmit = forms => {
-	const { url } = forms;
-	if (type.value === 1) {
-		props.editor.commands.insertContent({
-			type: "text",
-			text: `附件:${url}`,
-			marks: [
-				{
-					type: "link",
-					attrs: {
-						href: url
-					}
-				}
-			]
+const editorContext = inject("editorContext");
+const showType = ref(1);
+const handleEmit = async ({ url, file, type }) => {
+	console.log(type);
+	if (type === "upload") {
+		await editorContext.uploadPdf(file, src => {
+			props.editor.chain().focus().setIframe({ src: url }).run();
 		});
+	} else {
+		if (showType.value === 1) {
+			props.editor.commands.insertContent({
+				type: "text",
+				text: `附件:${url}`,
+				marks: [
+					{
+						type: "link",
+						attrs: {
+							href: url
+						}
+					}
+				]
+			});
+		}
+		if (showType.value === 2) {
+			props.editor.chain().focus().setIframe({ src: url }).run();
+		}
 	}
-	if (type.value === 2) {
-		props.editor.chain().focus().setIframe({ src: url }).run();
-	}
+
 	uploadRef.value.closeModal();
 	insertRef.value.closeModal();
 };
 
 const insertLocalPdf = () => {
-	type.value = 2;
+	showType.value = 2;
 	uploadRef.value.showModal();
 };
 </script>
