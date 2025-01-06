@@ -1,7 +1,7 @@
 <template>
 	<div v-if="editor" class="editor" :class="[isFullScreen ? 'editor--fullscreen' : '']">
 		<MenuButtons :editor="editor" />
-		<editor-content class="editor-code" :editor="editor" />
+		<editor-content class="editor-code" :editor="editor" style="height: 100%" />
 	</div>
 </template>
 

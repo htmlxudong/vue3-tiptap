@@ -1,24 +1,11 @@
 <template>
 	<div class="wrapper">
 		<h1 class="title">💐 Vue3 + Tiptap 🚀</h1>
-		<x-tiptap :events="editorEvents" v-model:content="valueHtml" />
+		<x-tiptap v-model:content="valueHtml" />
 	</div>
 </template>
 <script setup>
 import { ref, reactive, watch } from "vue";
-
-const editorEvents = {
-	/**
-	 * @param file 上传图片文件
-	 * @param insertFun 插入到富文本回调函数
-	 */
-	async uploadImg(file, insertFun) {},
-	/**
-	 * @param file 上传PDF文件
-	 * @param insertFun 插入到富文本回调函数
-	 */
-	async uploadPdf(file, insertFun) {}
-};
 
 const valueHtml = ref("<p>I’m running Tiptap with Vue.js. 🎉</p>");
 
@@ -40,6 +27,7 @@ watch(
 	}
 	margin: 0 auto;
 	width: 80%;
+	height: 400px;
 	padding: 60px 20px;
 }
 </style>

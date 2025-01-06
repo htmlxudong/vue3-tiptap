@@ -24,6 +24,7 @@
 }
 
 .editor {
+	height: 100%;
 	&--fullscreen {
 		position: fixed;
 		left: 0;
@@ -75,9 +76,13 @@
 	}
 
 	.tiptap {
-		> * + * {
-			margin-top: 0.75em;
+		&::selection {
+			background: var(--main-select-background);
 		}
+		max-width: 100%;
+		overflow-y: auto;
+		overflow-x: hidden;
+		height: calc(100% - 64px);
 		ul,
 		ol {
 			counter-reset: none;
