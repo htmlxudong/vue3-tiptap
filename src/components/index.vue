@@ -7,7 +7,7 @@
 
 <script setup>
 import MenuButtons from "./component/menu-buttons/index.vue";
-import { onBeforeUnmount, ref, provide, reactive } from "vue";
+import { onBeforeUnmount, ref, provide, reactive,watch  } from "vue";
 
 import Highlight from "@tiptap/extension-highlight";
 import TiptapUnderline from "@tiptap/extension-underline";
@@ -86,6 +86,20 @@ const editor = useEditor({
 	autofocus: "end",
 	onUpdate
 });
+
+watch(
+	() => props.content,
+	newValue => {
+		const isSame = editor.value?.getHTML() === newValue;
+		if (!isSame && editor.value) {
+			editor.value.commands.setContent(newValue, false);
+			editor.value.commands.focus();
+		}
+	},
+	{
+		immediate: true
+	}
+);
 
 provide("editorContext", props.events);
 
