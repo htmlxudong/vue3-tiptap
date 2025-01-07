@@ -5,9 +5,10 @@
 		<!-- 重做 -->
 		<ButtonTemplate :editor="editor" :option="redo" />
 		<!-- 格式刷 -->
-		<!-- 清除格式 -->
 		<ButtonTemplate :editor="editor" :option="clearFormat" />
+		<!-- 清除格式 -->
 		<FormatBrush :editor="editor" />
+		<Dvider />
 		<HeaderButton v-model="title" />
 		<ImageButton :editor="editor" />
 		<VideoButton :editor="editor" />
@@ -16,7 +17,7 @@
 		<FontColor :editor="editor" />
 		<BgColor :editor="editor" />
 		<LinkButton :editor="editor" />
-		
+
 		<ToolButton :desserts="editorTools" :editor="editor" />
 
 		<!-- 查找和替换 -->
@@ -37,8 +38,9 @@ import { BubbleMenu } from "@tiptap/vue-3";
 import ToolButton from "./tool-button.vue";
 import ButtonTemplate from "./button-template.vue";
 import FormatBrush from "./format-brush.vue";
-import { getMarkRange, Editor } from "@tiptap/core";
+import { Editor } from "@tiptap/core";
 import { TextSelection, AllSelection } from "@tiptap/pm/state";
+import Dvider from "../dvider.vue";
 
 import {
 	MinusOutlined,
@@ -327,7 +329,8 @@ export default defineComponent({
 		BgColor,
 		ButtonTemplate,
 		FormatBrush,
-		FindReplace
+		FindReplace,
+		Dvider
 	}
 });
 </script>
