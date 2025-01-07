@@ -80,48 +80,5 @@ const onUpdateColor = color => {
 </script>
 
 <style lang="scss" scoped>
-.border_black {
-	border: 1px solid rgba(0, 0, 0, 0.6) !important;
-}
-.colors-palette {
-	list-style: none;
-	width: 230px;
-	display: flex;
-	flex-wrap: wrap;
-	.color-item {
-		padding: 2px;
-		border: 1px solid transparent;
-		transition: border 0.2s ease-out;
-		cursor: pointer;
-		border-radius: 3px;
-		&:hover {
-			border: 1px solid rgba(0, 0, 0, 0.5);
-		}
-		.color-box {
-			border: 1px solid #e8e8e8;
-			background-color: rgb(235, 144, 58);
-			border-radius: 3px;
-			width: 17px;
-			height: 17px;
-		}
-	}
-}
-.color-more {
-	cursor: pointer;
-	width: 100%;
-	padding: 5px 0;
-	border-top: 1px solid #eee;
-	display: flex;
-	justify-content: space-between;
-	background: transparent;
-	transition: background 0.3s;
-	&:hover {
-		background: #e8e8e8;
-	}
-	.color-circle {
-		display: flex;
-		column-gap: 5px;
-		align-items: center;
-	}
-}
+
 </style>

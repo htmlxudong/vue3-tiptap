@@ -63,11 +63,12 @@
 	.search-highlight.current {
 		background-color: #fde047;
 	}
-
+	.tiptap .ProseMirror .selection,
+	.tiptap .ProseMirror *::selection,
+	::selection {
+		background: var(--main-primary-border-color);
+	}
 	.tiptap {
-		&::selection {
-			background: var(--main-select-background);
-		}
 		max-width: 100%;
 		overflow-y: auto;
 		overflow-x: hidden;
