@@ -8,7 +8,7 @@
 import { ref, reactive, watch } from "vue";
 
 const valueHtml = ref(`
-<p>I’m running Tiptap with Vue.js. 🎉</p>
+<p>I’m running Tiptap with Vue.js.. 🎉</p>
 `);
 </script>
 <style scoped lang="scss">
