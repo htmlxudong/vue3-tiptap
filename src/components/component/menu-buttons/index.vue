@@ -9,7 +9,10 @@
 		<!-- 清除格式 -->
 		<FormatBrush :editor="editor" />
 		<Dvider />
-		<HeaderButton v-model="title" />
+		<HeaderButton :editor="editor" />
+
+		
+		<ButtonTemplate :editor="editor" :option="bold" />
 		<ImageButton :editor="editor" />
 		<VideoButton :editor="editor" />
 		<PdfButton :editor="editor" />
@@ -17,6 +20,9 @@
 		<FontColor :editor="editor" />
 		<BgColor :editor="editor" />
 		<LinkButton :editor="editor" />
+
+		<!-- 有序列表 -->
+		<OrderedList :editor="editor" />
 
 		<ToolButton :desserts="editorTools" :editor="editor" />
 
@@ -41,6 +47,8 @@ import FormatBrush from "./format-brush.vue";
 import { Editor } from "@tiptap/core";
 import { TextSelection, AllSelection } from "@tiptap/pm/state";
 import Dvider from "../dvider.vue";
+import OrderedList from "./ordered-list.vue";
+
 
 import {
 	MinusOutlined,
@@ -91,15 +99,15 @@ export default defineComponent({
 		const toggleFullscreen = inject("toggleFullscreen");
 
 		const bubbleMenuTools = reactive([
-			{
-				name: "bold",
-				component: BoldOutlined,
-				click() {
-					props.editor.chain().focus().toggleBold().run();
-				},
-				tip: "粗体",
-				active: false
-			},
+			// {
+			// 	name: "bold",
+			// 	component: BoldOutlined,
+			// 	click() {
+			// 		props.editor.chain().focus().toggleBold().run();
+			// 	},
+			// 	tip: "粗体",
+			// 	active: false
+			// },
 			{
 				name: "strike",
 				component: StrikethroughOutlined,
@@ -269,15 +277,25 @@ export default defineComponent({
 			active: false
 		};
 
+		const bold = {
+			name: "bold",
+			component: BoldOutlined,
+			click() {
+				props.editor.chain().focus().toggleBold().run();
+			},
+			tip: "粗体",
+			active: false
+		};
+
 		return {
 			bubbleMenuTools,
-			title,
 			editorTools,
 			isFullScreen,
 			activeMenu,
 			undo,
 			redo,
-			clearFormat
+			clearFormat,
+			bold
 		};
 	},
 	methods: {
@@ -294,13 +312,6 @@ export default defineComponent({
 	watch: {
 		"editor.state.selection": function (selection) {
 			this.activeMenu = this.getCurrentMenuType();
-		},
-		title(value) {
-			if (value === 0) {
-				this.editor.chain().focus().setParagraph().run();
-			} else {
-				this.editor.chain().focus().toggleHeading({ level: value }).run();
-			}
 		}
 	},
 	computed: {},
@@ -330,7 +341,8 @@ export default defineComponent({
 		ButtonTemplate,
 		FormatBrush,
 		FindReplace,
-		Dvider
+		Dvider,
+		OrderedList
 	}
 });
 </script>

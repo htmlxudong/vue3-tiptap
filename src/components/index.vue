@@ -20,6 +20,7 @@ import Indent from "./extensions/indent";
 
 import {
 	// custom extension
+	CustomOrderedList,
 	FormatBrush,
 	// tiptap extension
 	Highlight,
@@ -44,7 +45,16 @@ const extensions = [
 	}),
 	TiptapUnderline,
 	Indent,
-	StarterKit,
+	StarterKit.configure({
+		orderedList: false,
+		// bulletList: false,
+		// code: false,
+		// paragraph: {
+		// 	HTMLAttributes: {
+		// 		class: "x-paragraph"
+		// 	}
+		// }
+	}),,
 	Images,
 	Iframe,
 	Color,
@@ -63,7 +73,8 @@ const extensions = [
 	TableHeader,
 	CustomTableCell,
 	Video,
-	FormatBrush
+	FormatBrush,
+	CustomOrderedList
 ];
 
 const isFullScreen = ref(false);

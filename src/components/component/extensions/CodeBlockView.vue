@@ -38,14 +38,14 @@ const selectedLanguage = computed({
 	padding: 10px 20px;
 	.language {
 		padding-bottom: 10px;
-		::v-deep .ant-select {
+		:deep(.ant-select) {
 			width: 100px;
 		}
-		::v-deep .ant-select-selector {
+		:deep(.ant-select-selector) {
 			background-color: #272c35;
 			color: #fff;
 		}
-		::v-deep .ant-select-arrow {
+		:deep(.ant-select-arrow) {
 			color: #fff;
 		}
 	}

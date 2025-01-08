@@ -97,6 +97,7 @@ const splitCell = () => {
 
 <style lang="scss" scoped>
 .dropdown {
+	list-style: none;
 	&__opeartion {
 		padding: 5px 10px;
 		cursor: pointer;
