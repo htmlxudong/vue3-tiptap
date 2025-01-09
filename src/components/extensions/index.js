@@ -1,6 +1,7 @@
 // 自定义插件
 export { default as FormatBrush } from "./format-brush.js";
 export { default as CustomOrderedList } from "./ordered-list.js";
+export { default as CustomBulletList } from "./bullet-list.js";
 
 // tiptap 插件
 export { default as Highlight } from "@tiptap/extension-highlight";

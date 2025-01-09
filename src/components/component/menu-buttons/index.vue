@@ -20,6 +20,8 @@
 		<BgColor :editor="editor" />
 		<!-- 有序列表 -->
 		<OrderedList :editor="editor" />
+		<!-- 无序列表 -->
+		<BulletList :editor="editor" />
 		<LinkButton :editor="editor" />
 		<ToolButton :desserts="editorTools" :editor="editor" />
 
@@ -43,8 +45,7 @@ import ButtonTemplate from "./button-template.vue";
 import FormatBrush from "./format-brush.vue";
 import { Editor } from "@tiptap/core";
 import { TextSelection, AllSelection } from "@tiptap/pm/state";
-import Dvider from "../dvider.vue";
-import OrderedList from "./ordered-list.vue";
+import { ref, reactive, defineComponent, inject, watch } from "vue";
 
 import {
 	MinusOutlined,
@@ -77,8 +78,11 @@ import LinkButton from "./link-button.vue";
 import FontColor from "./font-color.vue";
 import BgColor from "./bg-color.vue";
 import FindReplace from "./find-replace/find-replace.vue";
+import Dvider from "../dvider.vue";
+import OrderedList from "./ordered-list.vue";
+import BulletList from "./bullet-List.vue";
 
-import { ref, reactive, defineComponent, inject, watch } from "vue";
+
 
 export default defineComponent({
 	name: "MenuButtons",
@@ -189,15 +193,6 @@ export default defineComponent({
 				},
 				active: false
 			},
-			// {
-			// 	name: "orderedList",
-			// 	component: OrderedListOutlined,
-			// 	tip: "有序列表",
-			// 	click() {
-			// 		props.editor.chain().focus().toggleOrderedList().run();
-			// 	},
-			// 	active: false
-			// },
 			{
 				name: "MenuUnfoldOutlined",
 				component: MenuUnfoldOutlined,
@@ -329,7 +324,8 @@ export default defineComponent({
 		FormatBrush,
 		FindReplace,
 		Dvider,
-		OrderedList
+		OrderedList,
+		BulletList
 	}
 });
 </script>
