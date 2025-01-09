@@ -5,18 +5,22 @@
 		<!-- 重做 -->
 		<ButtonTemplate :editor="editor" :option="redo" />
 		<!-- 格式刷 -->
-		<!-- 清除格式 -->
 		<ButtonTemplate :editor="editor" :option="clearFormat" />
+		<!-- 清除格式 -->
 		<FormatBrush :editor="editor" />
-		<HeaderButton v-model="title" />
+		<Dvider />
+		<HeaderButton :editor="editor" />
+
+		<ButtonTemplate :editor="editor" :option="bold" />
 		<ImageButton :editor="editor" />
 		<VideoButton :editor="editor" />
 		<PdfButton :editor="editor" />
 		<TableButton :editor="editor" />
 		<FontColor :editor="editor" />
 		<BgColor :editor="editor" />
+		<!-- 有序列表 -->
+		<OrderedList :editor="editor" />
 		<LinkButton :editor="editor" />
-		
 		<ToolButton :desserts="editorTools" :editor="editor" />
 
 		<!-- 查找和替换 -->
@@ -37,8 +41,10 @@ import { BubbleMenu } from "@tiptap/vue-3";
 import ToolButton from "./tool-button.vue";
 import ButtonTemplate from "./button-template.vue";
 import FormatBrush from "./format-brush.vue";
-import { getMarkRange, Editor } from "@tiptap/core";
+import { Editor } from "@tiptap/core";
 import { TextSelection, AllSelection } from "@tiptap/pm/state";
+import Dvider from "../dvider.vue";
+import OrderedList from "./ordered-list.vue";
 
 import {
 	MinusOutlined,
@@ -66,7 +72,7 @@ import HeaderButton from "./header-button.vue";
 import ImageButton from "./image-button.vue";
 import VideoButton from "./video-button.vue";
 import PdfButton from "./pdf-button.vue";
-import TableButton from "./table-button.vue";
+import TableButton from "./table/table-button.vue";
 import LinkButton from "./link-button.vue";
 import FontColor from "./font-color.vue";
 import BgColor from "./bg-color.vue";
@@ -89,15 +95,6 @@ export default defineComponent({
 		const toggleFullscreen = inject("toggleFullscreen");
 
 		const bubbleMenuTools = reactive([
-			{
-				name: "bold",
-				component: BoldOutlined,
-				click() {
-					props.editor.chain().focus().toggleBold().run();
-				},
-				tip: "粗体",
-				active: false
-			},
 			{
 				name: "strike",
 				component: StrikethroughOutlined,
@@ -192,15 +189,15 @@ export default defineComponent({
 				},
 				active: false
 			},
-			{
-				name: "orderedList",
-				component: OrderedListOutlined,
-				tip: "有序列表",
-				click() {
-					props.editor.chain().focus().toggleOrderedList().run();
-				},
-				active: false
-			},
+			// {
+			// 	name: "orderedList",
+			// 	component: OrderedListOutlined,
+			// 	tip: "有序列表",
+			// 	click() {
+			// 		props.editor.chain().focus().toggleOrderedList().run();
+			// 	},
+			// 	active: false
+			// },
 			{
 				name: "MenuUnfoldOutlined",
 				component: MenuUnfoldOutlined,
@@ -267,15 +264,25 @@ export default defineComponent({
 			active: false
 		};
 
+		const bold = {
+			name: "bold",
+			component: BoldOutlined,
+			click() {
+				props.editor.chain().focus().toggleBold().run();
+			},
+			tip: "粗体",
+			active: false
+		};
+
 		return {
 			bubbleMenuTools,
-			title,
 			editorTools,
 			isFullScreen,
 			activeMenu,
 			undo,
 			redo,
-			clearFormat
+			clearFormat,
+			bold
 		};
 	},
 	methods: {
@@ -292,13 +299,6 @@ export default defineComponent({
 	watch: {
 		"editor.state.selection": function (selection) {
 			this.activeMenu = this.getCurrentMenuType();
-		},
-		title(value) {
-			if (value === 0) {
-				this.editor.chain().focus().setParagraph().run();
-			} else {
-				this.editor.chain().focus().toggleHeading({ level: value }).run();
-			}
 		}
 	},
 	computed: {},
@@ -327,7 +327,9 @@ export default defineComponent({
 		BgColor,
 		ButtonTemplate,
 		FormatBrush,
-		FindReplace
+		FindReplace,
+		Dvider,
+		OrderedList
 	}
 });
 </script>

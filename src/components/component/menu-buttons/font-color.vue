@@ -73,7 +73,7 @@ const onUpdateColor = color => {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .border_black {
 	border: 1px solid rgba(0, 0, 0, 0.6) !important;
 }

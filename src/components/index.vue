@@ -20,6 +20,7 @@ import Indent from "./extensions/indent";
 
 import {
 	// custom extension
+	CustomOrderedList,
 	FormatBrush,
 	// tiptap extension
 	Highlight,
@@ -44,7 +45,17 @@ const extensions = [
 	}),
 	TiptapUnderline,
 	Indent,
-	StarterKit,
+	StarterKit.configure({
+		orderedList: false
+		// bulletList: false,
+		// code: false,
+		// paragraph: {
+		// 	HTMLAttributes: {
+		// 		class: "x-paragraph"
+		// 	}
+		// }
+	}),
+	,
 	Images,
 	Iframe,
 	Color,
@@ -63,7 +74,8 @@ const extensions = [
 	TableHeader,
 	CustomTableCell,
 	Video,
-	FormatBrush
+	FormatBrush,
+	CustomOrderedList
 ];
 
 const isFullScreen = ref(false);
@@ -74,9 +86,13 @@ provide("isFullScreen", isFullScreen.value);
 provide("toggleFullscreen", toggleFullscreen);
 
 const onUpdate = ({ editor }) => {
-	const output = editor.getHTML();
-	emit("update:content", output);
-	emit("update", output, editor);
+	try {
+		const output = editor.getHTML();
+		emit("update:content", output);
+		emit("update", output, editor);
+	} catch (error) {
+		console.log(error, "error");
+	}
 };
 const editor = useEditor({
 	content: props.content,
@@ -98,8 +114,6 @@ watch(
 		immediate: true
 	}
 );
-
-provide("editorContext", props.events);
 
 onBeforeUnmount(() => {
 	editor.value?.destroy();

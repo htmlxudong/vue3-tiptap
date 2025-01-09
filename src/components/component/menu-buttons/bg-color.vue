@@ -16,9 +16,25 @@
 					<div class="color-box" :style="{ background: color }"></div>
 				</li>
 			</ul>
+
+			<a-popover placement="right">
+				<template #content>
+					<ColorPicker @updateColor="onUpdateColor" />
+				</template>
+				<div class="color-more">
+					<div class="color-circle">
+						<Icon name="color-picker" />
+						更多颜色
+					</div>
+					<div>
+						<Icon name="caret-right" />
+					</div>
+				</div>
+			</a-popover>
+
 		</template>
 		<a-tooltip placement="top">
-			<template #title> <span>文字颜色</span> </template>
+			<template #title> <span>背景颜色</span> </template>
 			<div
 				:class="[
 					'tools__button',
@@ -39,41 +55,30 @@
 import { getTextColor } from "./cells";
 import { ref, reactive } from "vue";
 import { BgColorsOutlined, CaretDownOutlined } from "@ant-design/icons-vue";
+import ColorPicker from "../../component/color-picker/color-picker.vue";
+import Icon from "../../component/Icon/src/Icon.vue";
+
 const props = defineProps(["editor"]);
 const colors = reactive(getTextColor());
-
+const currentColor = ref("#ffffff");
 const currentIndex = ref(9);
 
 const toggleColor = (color, index) => {
 	currentIndex.value = index;
 	props.editor.chain().focus().setHighlight({ color: color }).run();
 };
+
+const onUpdateColor = color => {
+	currentColor.value = `#${color}`;
+	props.editor
+		.chain()
+		.focus()
+		.setHighlight({ color: `#${color}` })
+		.run();
+};
+
 </script>
 
 <style lang="scss" scoped>
-.border_black {
-	border: 1px solid rgba(0, 0, 0, 0.6) !important;
-}
-.colors-palette {
-	width: 230px;
-	display: flex;
-	flex-wrap: wrap;
-	.color-item {
-		padding: 2px;
-		border: 1px solid transparent;
-		transition: border 0.2s ease-out;
-		cursor: pointer;
-		border-radius: 3px;
-		&:hover {
-			border: 1px solid rgba(0, 0, 0, 0.5);
-		}
-		.color-box {
-			border: 1px solid #e8e8e8;
-			background-color: rgb(235, 144, 58);
-			border-radius: 3px;
-			width: 17px;
-			height: 17px;
-		}
-	}
-}
+
 </style>

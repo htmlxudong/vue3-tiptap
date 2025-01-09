@@ -2,8 +2,12 @@
 	<a-popover placement="bottom" trigger="click">
 		<template #content>
 			<ul class="dropdown">
-				<li class="dropdown__opeartion" @click="insertRef.showModal()">插入网络视频</li>
-				<li class="dropdown__opeartion" @click="uploadRef.showModal()">上传本地视频</li>
+				<li class="dropdown__opeartion" @click="insertRef.showModal">
+					<PaperClipOutlined style="margin-right: 5px" />插入网络视频
+				</li>
+				<li class="dropdown__opeartion" @click="uploadRef.showModal">
+					<CloudUploadOutlined style="margin-right: 5px" />上传本地视频
+				</li>
 			</ul>
 		</template>
 		<a-tooltip placement="top">
@@ -29,8 +33,9 @@
 
 <script setup>
 import { ref, reactive, inject } from "vue";
-import { VideoCameraOutlined } from "@ant-design/icons-vue";
+import { VideoCameraOutlined,CloudUploadOutlined, PaperClipOutlined  } from "@ant-design/icons-vue";
 import { validateUrl } from "@/utils/pattern.js";
+import { _getBase64 } from "@/utils/index.js";
 
 import InsertVideo from "./insert-model/index.vue";
 import UploadVideo from "./upload-model/index.vue";
@@ -51,16 +56,14 @@ const headers = [
 	}
 ];
 
-const editorContext = inject("editorContext");
 const insertRef = ref();
 const uploadRef = ref();
 const handleEmit = async ({ url, file, type }) => {
 	if (type === "upload") {
-		await editorContext.uploadImg(file, src => {
-			props.editor.chain().focus().setImage({ src }).run();
-		});
+		const src = await _getBase64(file);
+		props.editor.chain().focus().setVideo({ src }).run();
 	} else {
-		props.editor.chain().focus().setImage({ src: url }).run();
+		props.editor.chain().focus().setVideo({ src: url }).run();
 	}
 	props.editor.chain().focus().setVideo({ src: url }).run();
 	uploadRef.value.closeModal();
@@ -68,15 +71,4 @@ const handleEmit = async ({ url, file, type }) => {
 };
 </script>
 
-<style lang="scss" scoped>
-.dropdown {
-	&__opeartion {
-		padding: 5px 0;
-		cursor: pointer;
-		transition: 0.2s;
-		&:hover {
-			color: #409eff;
-		}
-	}
-}
-</style>
+<style lang="scss" scoped></style>
