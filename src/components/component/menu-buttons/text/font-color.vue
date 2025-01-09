@@ -54,12 +54,11 @@
 import { getTextColor } from "./cells";
 import { ref, reactive, computed } from "vue";
 import { FontColorsOutlined, CaretDownOutlined } from "@ant-design/icons-vue";
-import Icon from "../../component/Icon/src/Icon.vue";
-import ColorPicker from "../../component/color-picker/color-picker.vue";
+import Icon from "@/components/component/Icon/src/Icon.vue";
+import ColorPicker from "@/components/component/color-picker/color-picker.vue";
 
 const props = defineProps(["editor"]);
 const colors = reactive(getTextColor());
-const currentColor = ref("#ffffff");
 const currentIndex = ref(0);
 
 const toggleColor = (color, index) => {
@@ -68,8 +67,7 @@ const toggleColor = (color, index) => {
 };
 
 const onUpdateColor = color => {
-	currentColor.value = `#${color}`;
-	props.editor.chain().focus().setColor(`#${color}`).run();
+	props.editor.chain().focus().setColor(color).run();
 };
 </script>
 

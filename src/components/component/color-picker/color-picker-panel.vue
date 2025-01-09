@@ -120,7 +120,7 @@ const onChangeColor = data => {
 	});
 
 	emits("changeForms", opacityColor.value.toHex());
-	emits("updateColor", opacityColor.value.toHex());
+	emits("updateColor", `#${opacityColor.value.toHex()}`);
 };
 const onChangeSlide = data => {
 	const hue = calculateHueColor(data, "data");
@@ -153,7 +153,7 @@ const onChangeSlide = data => {
 		v: hsvOpa.v,
 		a: hsvOpa.a
 	});
-	emits("updateColor", opacityColor.value.toHex());
+	emits("updateColor", `#${opacityColor.value.toHex()}`);
 };
 
 const onChangeOpacity = data => {
@@ -165,7 +165,7 @@ const onChangeOpacity = data => {
 		v: hsv.v,
 		a: opacity
 	});
-	emits("updateColor", opacityColor.value.toHex());
+	emits("updateColor", opacityColor.value.toRgbString());
 };
 
 const handleColor = ({ type, value }) => {

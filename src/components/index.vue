@@ -21,6 +21,7 @@ import Indent from "./extensions/indent";
 import {
 	// custom extension
 	CustomOrderedList,
+	CustomBulletList,
 	FormatBrush,
 	// tiptap extension
 	Highlight,
@@ -33,7 +34,8 @@ import {
 	TableRow,
 	TextStyle,
 	Color,
-	lowlight
+	lowlight,
+	FontFamily
 } from "../components/extensions/index.js";
 
 const emit = defineEmits(["update:content", "update"]);
@@ -46,8 +48,8 @@ const extensions = [
 	TiptapUnderline,
 	Indent,
 	StarterKit.configure({
-		orderedList: false
-		// bulletList: false,
+		orderedList: false,
+		bulletList: false,
 		// code: false,
 		// paragraph: {
 		// 	HTMLAttributes: {
@@ -75,7 +77,9 @@ const extensions = [
 	CustomTableCell,
 	Video,
 	FormatBrush,
-	CustomOrderedList
+	CustomOrderedList,
+	CustomBulletList,
+	FontFamily
 ];
 
 const isFullScreen = ref(false);

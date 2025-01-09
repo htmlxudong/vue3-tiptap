@@ -16,19 +16,19 @@ export default defineConfig({
 		port: 8000,
 		open: true
 	},
-	build: {
-		lib: {
-			entry: resolve(__dirname, "src/index.js"),
-			name: "Vue3TipTap",
-			fileName: "vue3-tiptap"
-		},
-		rollupOptions: {
-			external: ["vue"],
-			output: {
-				globals: {
-					vue: "Vue"
-				}
-			}
-		}
-	}
+	// build: {
+	// 	lib: {
+	// 		entry: resolve(__dirname, "src/index.js"),
+	// 		name: "Vue3TipTap",
+	// 		fileName: "vue3-tiptap"
+	// 	},
+	// 	rollupOptions: {
+	// 		external: ["vue"],
+	// 		output: {
+	// 			globals: {
+	// 				vue: "Vue"
+	// 			}
+	// 		}
+	// 	}
+	// }
 });

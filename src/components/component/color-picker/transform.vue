@@ -40,7 +40,7 @@ const moveStyle = computed(
 const handleEvent = event => {
 	event.stopPropagation();
 	// #bug: 使用event.preventDefault() 会影响tiptap鼠标选区
-	// event.preventDefault();
+	event.preventDefault();
 };
 
 const start = event => {
