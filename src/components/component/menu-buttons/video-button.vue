@@ -31,6 +31,7 @@
 import { ref, reactive, inject } from "vue";
 import { VideoCameraOutlined } from "@ant-design/icons-vue";
 import { validateUrl } from "@/utils/pattern.js";
+import { _getBase64 } from "@/utils/index.js";
 
 import InsertVideo from "./insert-model/index.vue";
 import UploadVideo from "./upload-model/index.vue";
@@ -51,16 +52,15 @@ const headers = [
 	}
 ];
 
-const editorContext = inject("editorContext");
+
 const insertRef = ref();
 const uploadRef = ref();
 const handleEmit = async ({ url, file, type }) => {
 	if (type === "upload") {
-		await editorContext.uploadImg(file, src => {
-			props.editor.chain().focus().setImage({ src }).run();
-		});
+		const src = await _getBase64(file);
+		props.editor.chain().focus().setVideo({ src }).run();
 	} else {
-		props.editor.chain().focus().setImage({ src: url }).run();
+		props.editor.chain().focus().setVideo({ src: url }).run();
 	}
 	props.editor.chain().focus().setVideo({ src: url }).run();
 	uploadRef.value.closeModal();
@@ -70,6 +70,7 @@ const handleEmit = async ({ url, file, type }) => {
 
 <style lang="scss" scoped>
 .dropdown {
+	list-style:none;
 	&__opeartion {
 		padding: 5px 0;
 		cursor: pointer;

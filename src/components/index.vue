@@ -46,7 +46,7 @@ const extensions = [
 	TiptapUnderline,
 	Indent,
 	StarterKit.configure({
-		orderedList: false,
+		orderedList: false
 		// bulletList: false,
 		// code: false,
 		// paragraph: {
@@ -54,7 +54,8 @@ const extensions = [
 		// 		class: "x-paragraph"
 		// 	}
 		// }
-	}),,
+	}),
+	,
 	Images,
 	Iframe,
 	Color,
@@ -85,9 +86,13 @@ provide("isFullScreen", isFullScreen.value);
 provide("toggleFullscreen", toggleFullscreen);
 
 const onUpdate = ({ editor }) => {
-	const output = editor.getHTML();
-	emit("update:content", output);
-	emit("update", output, editor);
+	try {
+		const output = editor.getHTML();
+		emit("update:content", output);
+		emit("update", output, editor);
+	} catch (error) {
+		console.log(error, "error");
+	}
 };
 const editor = useEditor({
 	content: props.content,
@@ -109,8 +114,6 @@ watch(
 		immediate: true
 	}
 );
-
-provide("editorContext", props.events);
 
 onBeforeUnmount(() => {
 	editor.value?.destroy();

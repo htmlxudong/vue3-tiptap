@@ -1,28 +1,12 @@
 <template>
-	<a-popover placement="bottom" trigger="click">
+	<a-popover placement="bottom" trigger="click" v-model:open="visible">
 		<template #content>
-			<ul class="dropdown">
+			<ul class="dropdown" ref="containerRef">
 				<li class="dropdown__opeartion border_bottom">
 					<a-popover placement="right">
 						<template #content>
-							<div class="x_flex">
-								<div class="label">行：</div>
-								<div class="input_box">
-									<a-input v-model:value="forms['rows']" />
-								</div>
-							</div>
-							<div class="x_flex">
-								<div class="label">列：</div>
-								<div class="input_box">
-									<a-input v-model:value="forms['cols']" />
-								</div>
-							</div>
-
-							<div class="x_flex justify-center">
-								<a-button @click="insertTable"> 插入 </a-button>
-							</div>
+							<TableSheet @emitTable="onEmitTable" />
 						</template>
-
 						<div>插入表格</div>
 					</a-popover>
 				</li>
@@ -48,50 +32,58 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 import { TableOutlined } from "@ant-design/icons-vue";
+import TableSheet from "./table-sheet.vue";
+import { onClickOutside } from "@vueuse/core";
 
 const props = defineProps(["editor"]);
 
-const forms = reactive({
-	rows: 1,
-	cols: 1
-});
+const visible = ref(false);
 const emit = defineEmits(["emitTable"]);
+const containerRef = ref();
 
-const insertTable = () => {
-	props.editor
-		.chain()
-		.focus()
-		.insertTable({ ...forms, withHeaderRow: true })
-		.run();
+const onEmitTable = ({ row, column }) => {
+	props.editor.chain().focus().insertTable({ rows: row, cols: column, withHeaderRow: true }).run();
 };
+
+onClickOutside(containerRef, () => {
+	visible.value = false;
+});
 
 const addRowBefore = () => {
 	props.editor.chain().focus().addRowBefore().run();
+	visible.value = false;
 };
 const addRowAfter = () => {
 	props.editor.chain().focus().addRowAfter().run();
+	visible.value = false;
 };
 const delRow = () => {
 	props.editor.chain().focus().deleteRow().run();
+	visible.value = false;
 };
 
 const addColBefore = () => {
 	props.editor.chain().focus().addColumnBefore().run();
+	visible.value = false;
 };
 const addColAfter = () => {
 	props.editor.chain().focus().addColumnAfter().run();
+	visible.value = false;
 };
 const delCol = () => {
 	props.editor.chain().focus().deleteColumn().run();
+	visible.value = false;
 };
 
 const mergeCells = () => {
 	props.editor.chain().focus().mergeCells().run();
+	visible.value = false;
 };
 const splitCell = () => {
 	props.editor.chain().focus().splitCell().run();
+	visible.value = false;
 };
 </script>
 

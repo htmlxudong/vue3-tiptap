@@ -40,6 +40,7 @@ import { validateUrl } from "@/utils/pattern.js";
 import { FilePdfOutlined, CloudUploadOutlined, DisconnectOutlined } from "@ant-design/icons-vue";
 import InsertPDF from "./insert-model/index.vue";
 import UploadPDF from "./upload-model/index.vue";
+import { _getBase64 } from "@/utils/index.js";
 
 const emit = defineEmits(["emitPdf"]);
 const props = defineProps(["editor"]);
@@ -60,14 +61,12 @@ const headers = [
 	}
 ];
 
-const editorContext = inject("editorContext");
 const showType = ref(1);
 const handleEmit = async ({ url, file, type }) => {
 	console.log(type);
 	if (type === "upload") {
-		await editorContext.uploadPdf(file, src => {
-			props.editor.chain().focus().setIframe({ src: url }).run();
-		});
+		const src = await _getBase64(file);
+		props.editor.chain().focus().setIframe({ src: url }).run();
 	} else {
 		if (showType.value === 1) {
 			props.editor.commands.insertContent({

@@ -76,7 +76,7 @@ import HeaderButton from "./header-button.vue";
 import ImageButton from "./image-button.vue";
 import VideoButton from "./video-button.vue";
 import PdfButton from "./pdf-button.vue";
-import TableButton from "./table-button.vue";
+import TableButton from "./table/table-button.vue";
 import LinkButton from "./link-button.vue";
 import FontColor from "./font-color.vue";
 import BgColor from "./bg-color.vue";

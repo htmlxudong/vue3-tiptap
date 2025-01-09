@@ -34,6 +34,7 @@ import { PictureOutlined, CloudUploadOutlined, PaperClipOutlined } from "@ant-de
 import { validateUrl } from "@/utils/pattern.js";
 import InsertImage from "./insert-model/index.vue";
 import UploadImage from "./upload-model/index.vue";
+import { _getBase64 } from "@/utils/index.js";
 
 const props = defineProps(["editor"]);
 
@@ -50,14 +51,13 @@ const headers = [
 	}
 ];
 
-const editorContext = inject("editorContext");
 const insertRef = ref();
 const uploadRef = ref();
+
 const handleEmit = async ({ url, file, type }) => {
 	if (type === "upload") {
-		await editorContext.uploadImg(file, src => {
-			props.editor.chain().focus().setImage({ src }).run();
-		});
+		const src = await _getBase64(file);
+		props.editor.chain().focus().setImage({ src }).run();
 	} else {
 		props.editor.chain().focus().setImage({ src: url }).run();
 	}
@@ -69,6 +69,7 @@ const handleEmit = async ({ url, file, type }) => {
 
 <style lang="scss" scoped>
 .dropdown {
+	list-style: none;
 	&__opeartion {
 		padding: 5px 0;
 		cursor: pointer;
