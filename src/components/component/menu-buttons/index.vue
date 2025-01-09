@@ -11,7 +11,6 @@
 		<Dvider />
 		<HeaderButton :editor="editor" />
 
-		
 		<ButtonTemplate :editor="editor" :option="bold" />
 		<ImageButton :editor="editor" />
 		<VideoButton :editor="editor" />
@@ -19,11 +18,9 @@
 		<TableButton :editor="editor" />
 		<FontColor :editor="editor" />
 		<BgColor :editor="editor" />
-		<LinkButton :editor="editor" />
-
 		<!-- 有序列表 -->
 		<OrderedList :editor="editor" />
-
+		<LinkButton :editor="editor" />
 		<ToolButton :desserts="editorTools" :editor="editor" />
 
 		<!-- 查找和替换 -->
@@ -48,7 +45,6 @@ import { Editor } from "@tiptap/core";
 import { TextSelection, AllSelection } from "@tiptap/pm/state";
 import Dvider from "../dvider.vue";
 import OrderedList from "./ordered-list.vue";
-
 
 import {
 	MinusOutlined,
@@ -99,15 +95,6 @@ export default defineComponent({
 		const toggleFullscreen = inject("toggleFullscreen");
 
 		const bubbleMenuTools = reactive([
-			// {
-			// 	name: "bold",
-			// 	component: BoldOutlined,
-			// 	click() {
-			// 		props.editor.chain().focus().toggleBold().run();
-			// 	},
-			// 	tip: "粗体",
-			// 	active: false
-			// },
 			{
 				name: "strike",
 				component: StrikethroughOutlined,
@@ -202,15 +189,15 @@ export default defineComponent({
 				},
 				active: false
 			},
-			{
-				name: "orderedList",
-				component: OrderedListOutlined,
-				tip: "有序列表",
-				click() {
-					props.editor.chain().focus().toggleOrderedList().run();
-				},
-				active: false
-			},
+			// {
+			// 	name: "orderedList",
+			// 	component: OrderedListOutlined,
+			// 	tip: "有序列表",
+			// 	click() {
+			// 		props.editor.chain().focus().toggleOrderedList().run();
+			// 	},
+			// 	active: false
+			// },
 			{
 				name: "MenuUnfoldOutlined",
 				component: MenuUnfoldOutlined,

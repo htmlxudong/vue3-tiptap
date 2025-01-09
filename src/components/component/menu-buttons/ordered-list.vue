@@ -13,8 +13,8 @@
 						}
 					]"
 				>
-					<Icon name="ordered-list" />
-					<Icon name="caret-down" />
+					<OrderedListOutlined style="font-size: 18px" />
+					<CaretDownOutlined style="font-size: 10px" />
 				</div>
 			</a-tooltip>
 		</div>
@@ -38,6 +38,8 @@
 <script setup>
 import Icon from "../Icon/src/Icon.vue";
 import { computed, watch, ref } from "vue";
+import { OrderedListOutlined,CaretDownOutlined } from "@ant-design/icons-vue";
+
 
 const emit = defineEmits(["update:modelValue", "change"]);
 const props = defineProps(["modelValue", "editor"]);
@@ -96,7 +98,8 @@ const setDataSet = style => {
 
 <style lang="scss" scoped>
 .ordered_button {
-	width: 40px;
+	width: 45px;
+	gap:5px;
 }
 
 .order-lists {

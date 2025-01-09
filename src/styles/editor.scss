@@ -48,6 +48,21 @@
 		background: var(--main-primary-background);
 	}
 }
+
+
+.dropdown {
+	list-style: none;
+	&__opeartion {
+		padding: 5px 0;
+		cursor: pointer;
+		transition: 0.2s;
+
+		&:hover {
+			color: #409eff;
+		}
+	}
+}
+
 .editor {
 	height: 100%;
 	border: 1px solid var(--main-primary-border-color);

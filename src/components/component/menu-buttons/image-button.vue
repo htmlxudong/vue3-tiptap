@@ -67,16 +67,4 @@ const handleEmit = async ({ url, file, type }) => {
 };
 </script>
 
-<style lang="scss" scoped>
-.dropdown {
-	list-style: none;
-	&__opeartion {
-		padding: 5px 0;
-		cursor: pointer;
-		transition: 0.2s;
-		&:hover {
-			color: #409eff;
-		}
-	}
-}
-</style>
+<style lang="scss" scoped></style>

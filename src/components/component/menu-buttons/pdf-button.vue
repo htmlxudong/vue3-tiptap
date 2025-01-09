@@ -63,10 +63,9 @@ const headers = [
 
 const showType = ref(1);
 const handleEmit = async ({ url, file, type }) => {
-	console.log(type);
 	if (type === "upload") {
 		const src = await _getBase64(file);
-		props.editor.chain().focus().setIframe({ src: url }).run();
+		props.editor.chain().focus().setIframe({ src }).run();
 	} else {
 		if (showType.value === 1) {
 			props.editor.commands.insertContent({
@@ -97,16 +96,4 @@ const insertLocalPdf = () => {
 };
 </script>
 
-<style lang="scss" scoped>
-.dropdown {
-	&__opeartion {
-		padding: 5px 0;
-		cursor: pointer;
-		transition: 0.2s;
-
-		&:hover {
-			color: #409eff;
-		}
-	}
-}
-</style>
+<style lang="scss" scoped></style>
