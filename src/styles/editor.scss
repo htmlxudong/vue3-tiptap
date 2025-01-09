@@ -67,6 +67,7 @@
 	height: 100%;
 	border: 1px solid var(--main-primary-border-color);
 	overflow: hidden;
+	background-color: #fff;
 	&--fullscreen {
 		position: fixed;
 		left: 0;
@@ -251,7 +252,7 @@
 
 		blockquote {
 			padding-left: 16px;
-			border-left: 4px solid var(--main-border-quote);
+			border-left: 3px solid var(--main-primary-border-color);
 			border-radius: 2px;
 			margin: 10px 0;
 		}
@@ -266,9 +267,7 @@
 			color: var(--code-a-color);
 			text-decoration: underline;
 		}
-		// .tableWrapper {
-		// 	overflow-x: auto;
-		// }
+	
 		table {
 			border-collapse: collapse;
 			table-layout: fixed;

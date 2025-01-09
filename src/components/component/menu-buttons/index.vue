@@ -8,6 +8,8 @@
 		<ButtonTemplate :editor="editor" :option="clearFormat" />
 		<!-- 清除格式 -->
 		<FormatBrush :editor="editor" />
+		<ButtonTemplate :editor="editor" :option="indent" />
+		<ButtonTemplate :editor="editor" :option="outdent" />
 		<Dvider />
 
 		<HeaderButton :editor="editor" />
@@ -136,24 +138,6 @@ export default defineComponent({
 				active: false
 			},
 			{
-				name: "MenuUnfoldOutlined",
-				component: MenuUnfoldOutlined,
-				tip: "缩进",
-				click() {
-					props.editor.chain().focus().indent().run();
-				},
-				active: false
-			},
-			{
-				name: "MenuFoldOutlined",
-				component: MenuFoldOutlined,
-				tip: "取消缩进",
-				click() {
-					props.editor.chain().focus().outdent().run();
-				},
-				active: false
-			},
-			{
 				name: "ExpandOutlined",
 				component: ExpandOutlined,
 				tip: "全屏",
@@ -267,6 +251,26 @@ export default defineComponent({
 			active: false
 		};
 
+		const indent = {
+			name: "MenuUnfoldOutlined",
+			component: MenuUnfoldOutlined,
+			tip: "缩进",
+			click() {
+				props.editor.chain().focus().indent().run();
+			},
+			active: false
+		};
+
+		const outdent = {
+			name: "MenuFoldOutlined",
+			component: MenuFoldOutlined,
+			tip: "取消缩进",
+			click() {
+				props.editor.chain().focus().outdent().run();
+			},
+			active: false
+		};
+
 		return {
 			editorTools,
 			isFullScreen,
@@ -281,7 +285,9 @@ export default defineComponent({
 			horizontal,
 			strike,
 			underline,
-			italic
+			italic,
+			indent,
+			outdent
 		};
 	},
 	methods: {
