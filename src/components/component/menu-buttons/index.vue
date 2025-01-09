@@ -19,7 +19,6 @@
 		<ButtonTemplate :editor="editor" :option="strike" />
 		<ButtonTemplate :editor="editor" :option="underline" />
 		<ButtonTemplate :editor="editor" :option="italic" />
-
 		<Dvider />
 		<ImageButton :editor="editor" />
 		<VideoButton :editor="editor" />
