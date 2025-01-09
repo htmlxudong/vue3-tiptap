@@ -94,6 +94,7 @@ const changeInputColor = ({ h, s, v, type }) => {
 	if (type === "rgb") {
 		forms["hex"] = opacityColor.toHex();
 	}
+	emits("updateColor", `#${forms["hex"]}`);
 };
 
 const onChangeForms = newColor => {

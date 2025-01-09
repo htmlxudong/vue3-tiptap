@@ -9,9 +9,11 @@
 		<!-- 清除格式 -->
 		<FormatBrush :editor="editor" />
 		<Dvider />
-		<HeaderButton :editor="editor" />
 
+		<HeaderButton :editor="editor" />
 		<ButtonTemplate :editor="editor" :option="bold" />
+		<FontColor :editor="editor" />
+		<BgColor :editor="editor" />
 		<ButtonTemplate :editor="editor" :option="alignLeft" />
 		<ButtonTemplate :editor="editor" :option="alignCenter" />
 		<ButtonTemplate :editor="editor" :option="alignRight" />
@@ -24,8 +26,7 @@
 		<VideoButton :editor="editor" />
 		<PdfButton :editor="editor" />
 		<TableButton :editor="editor" />
-		<FontColor :editor="editor" />
-		<BgColor :editor="editor" />
+
 		<!-- 有序列表 -->
 		<OrderedList :editor="editor" />
 		<!-- 无序列表 -->

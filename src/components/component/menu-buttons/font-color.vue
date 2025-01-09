@@ -59,7 +59,6 @@ import ColorPicker from "../../component/color-picker/color-picker.vue";
 
 const props = defineProps(["editor"]);
 const colors = reactive(getTextColor());
-const currentColor = ref("#ffffff");
 const currentIndex = ref(0);
 
 const toggleColor = (color, index) => {
@@ -68,8 +67,8 @@ const toggleColor = (color, index) => {
 };
 
 const onUpdateColor = color => {
-	currentColor.value = `#${color}`;
-	props.editor.chain().focus().setColor(`#${color}`).run();
+	console.log(color,'color')
+	props.editor.chain().focus().setColor(color).run();
 };
 </script>
 

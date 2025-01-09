@@ -31,7 +31,6 @@
 					</div>
 				</div>
 			</a-popover>
-
 		</template>
 		<a-tooltip placement="top">
 			<template #title> <span>背景颜色</span> </template>
@@ -60,7 +59,6 @@ import Icon from "../../component/Icon/src/Icon.vue";
 
 const props = defineProps(["editor"]);
 const colors = reactive(getTextColor());
-const currentColor = ref("#ffffff");
 const currentIndex = ref(9);
 
 const toggleColor = (color, index) => {
@@ -69,16 +67,8 @@ const toggleColor = (color, index) => {
 };
 
 const onUpdateColor = color => {
-	currentColor.value = `#${color}`;
-	props.editor
-		.chain()
-		.focus()
-		.setHighlight({ color: `#${color}` })
-		.run();
+	props.editor.chain().focus().setHighlight({ color }).run();
 };
-
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
