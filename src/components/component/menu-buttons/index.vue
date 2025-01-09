@@ -12,6 +12,15 @@
 		<HeaderButton :editor="editor" />
 
 		<ButtonTemplate :editor="editor" :option="bold" />
+		<ButtonTemplate :editor="editor" :option="alignLeft" />
+		<ButtonTemplate :editor="editor" :option="alignCenter" />
+		<ButtonTemplate :editor="editor" :option="alignRight" />
+		<ButtonTemplate :editor="editor" :option="horizontal" />
+		<ButtonTemplate :editor="editor" :option="strike" />
+		<ButtonTemplate :editor="editor" :option="underline" />
+		<ButtonTemplate :editor="editor" :option="italic" />
+
+		<Dvider />
 		<ImageButton :editor="editor" />
 		<VideoButton :editor="editor" />
 		<PdfButton :editor="editor" />
@@ -82,8 +91,6 @@ import Dvider from "../dvider.vue";
 import OrderedList from "./ordered-list.vue";
 import BulletList from "./bullet-List.vue";
 
-
-
 export default defineComponent({
 	name: "MenuButtons",
 	props: {
@@ -94,21 +101,8 @@ export default defineComponent({
 	},
 	setup(props, setupContext) {
 		const activeMenu = ref(false);
-		const title = ref(0);
 		const isFullScreen = inject("isFullScreen");
 		const toggleFullscreen = inject("toggleFullscreen");
-
-		const bubbleMenuTools = reactive([
-			{
-				name: "strike",
-				component: StrikethroughOutlined,
-				click() {
-					props.editor.chain().focus().toggleStrike().run();
-				},
-				tip: "删除线",
-				active: false
-			}
-		]);
 
 		const editorTools = reactive([
 			{
@@ -138,61 +132,6 @@ export default defineComponent({
 				tip: "代码块",
 				active: false
 			},
-
-			{
-				name: "underline",
-				component: UnderlineOutlined,
-				click() {
-					props.editor.chain().focus().toggleUnderline().run();
-				},
-				tip: "下划线",
-				active: false
-			},
-			{
-				name: "italic",
-				component: ItalicOutlined,
-				tip: "斜体",
-				click() {
-					props.editor.chain().focus().toggleItalic().run();
-				},
-				active: false
-			},
-			{
-				name: "left",
-				component: AlignLeftOutlined,
-				click() {
-					props.editor.chain().focus().setTextAlign("left").run();
-				},
-				tip: "左对齐",
-				active: false
-			},
-			{
-				name: "center",
-				component: AlignCenterOutlined,
-				tip: "居中对齐",
-				click() {
-					props.editor.chain().focus().setTextAlign("center").run();
-				},
-				active: false
-			},
-			{
-				name: "right",
-				component: AlignRightOutlined,
-				tip: "右对齐",
-				click() {
-					props.editor.chain().focus().setTextAlign("right").run();
-				},
-				active: false
-			},
-			{
-				name: "bulletList",
-				component: UnorderedListOutlined,
-				tip: "无序列表",
-				click() {
-					props.editor.chain().focus().toggleBulletList().run();
-				},
-				active: false
-			},
 			{
 				name: "MenuUnfoldOutlined",
 				component: MenuUnfoldOutlined,
@@ -211,16 +150,6 @@ export default defineComponent({
 				},
 				active: false
 			},
-			{
-				name: "MinusOutlined",
-				component: MinusOutlined,
-				tip: "水平线",
-				click() {
-					props.editor.chain().focus().setHorizontalRule().run();
-				},
-				active: false
-			},
-			...bubbleMenuTools,
 			{
 				name: "ExpandOutlined",
 				component: ExpandOutlined,
@@ -269,15 +198,87 @@ export default defineComponent({
 			active: false
 		};
 
+		const alignCenter = {
+			name: "center",
+			component: AlignCenterOutlined,
+			tip: "居中对齐",
+			click() {
+				props.editor.chain().focus().setTextAlign("center").run();
+			},
+			active: false
+		};
+
+		const alignLeft = {
+			name: "left",
+			component: AlignLeftOutlined,
+			click() {
+				props.editor.chain().focus().setTextAlign("left").run();
+			},
+			tip: "左对齐",
+			active: false
+		};
+		const alignRight = {
+			name: "right",
+			component: AlignRightOutlined,
+			tip: "右对齐",
+			click() {
+				props.editor.chain().focus().setTextAlign("right").run();
+			},
+			active: false
+		};
+		const horizontal = {
+			name: "MinusOutlined",
+			component: MinusOutlined,
+			tip: "水平线",
+			click() {
+				props.editor.chain().focus().setHorizontalRule().run();
+			},
+			active: false
+		};
+		const strike = {
+			name: "strike",
+			component: StrikethroughOutlined,
+			click() {
+				props.editor.chain().focus().toggleStrike().run();
+			},
+			tip: "删除线",
+			active: false
+		};
+		const underline = {
+			name: "underline",
+			component: UnderlineOutlined,
+			click() {
+				props.editor.chain().focus().toggleUnderline().run();
+			},
+			tip: "下划线",
+			active: false
+		};
+
+		const italic = {
+			name: "italic",
+			component: ItalicOutlined,
+			tip: "斜体",
+			click() {
+				props.editor.chain().focus().toggleItalic().run();
+			},
+			active: false
+		};
+
 		return {
-			bubbleMenuTools,
 			editorTools,
 			isFullScreen,
 			activeMenu,
 			undo,
 			redo,
 			clearFormat,
-			bold
+			bold,
+			alignLeft,
+			alignCenter,
+			alignRight,
+			horizontal,
+			strike,
+			underline,
+			italic
 		};
 	},
 	methods: {
