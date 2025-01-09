@@ -12,6 +12,8 @@
 
 		<HeaderButton :editor="editor" />
 		<ButtonTemplate :editor="editor" :option="bold" />
+		<!-- 字体 -->
+		<FontFamily :editor="editor" />
 		<FontColor :editor="editor" />
 		<BgColor :editor="editor" />
 		<ButtonTemplate :editor="editor" :option="alignLeft" />
@@ -84,12 +86,13 @@ import VideoButton from "./video-button.vue";
 import PdfButton from "./pdf-button.vue";
 import TableButton from "./table/table-button.vue";
 import LinkButton from "./link-button.vue";
-import FontColor from "./font-color.vue";
-import BgColor from "./bg-color.vue";
+import FontColor from "./text/font-color.vue";
+import BgColor from "./text/bg-color.vue";
 import FindReplace from "./find-replace/find-replace.vue";
 import Dvider from "../dvider.vue";
 import OrderedList from "./ordered-list.vue";
 import BulletList from "./bullet-List.vue";
+import FontFamily from "./text/font-family.vue";
 
 export default defineComponent({
 	name: "MenuButtons",
@@ -326,7 +329,8 @@ export default defineComponent({
 		FindReplace,
 		Dvider,
 		OrderedList,
-		BulletList
+		BulletList,
+		FontFamily
 	}
 });
 </script>

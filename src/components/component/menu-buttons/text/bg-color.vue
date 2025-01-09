@@ -54,8 +54,8 @@
 import { getTextColor } from "./cells";
 import { ref, reactive } from "vue";
 import { BgColorsOutlined, CaretDownOutlined } from "@ant-design/icons-vue";
-import ColorPicker from "../../component/color-picker/color-picker.vue";
-import Icon from "../../component/Icon/src/Icon.vue";
+import ColorPicker from "@/components/component/color-picker/color-picker.vue";
+import Icon from "@/components/component/Icon/src/Icon.vue";
 
 const props = defineProps(["editor"]);
 const colors = reactive(getTextColor());

@@ -34,7 +34,8 @@ import {
 	TableRow,
 	TextStyle,
 	Color,
-	lowlight
+	lowlight,
+	FontFamily
 } from "../components/extensions/index.js";
 
 const emit = defineEmits(["update:content", "update"]);
@@ -77,7 +78,8 @@ const extensions = [
 	Video,
 	FormatBrush,
 	CustomOrderedList,
-	CustomBulletList
+	CustomBulletList,
+	FontFamily
 ];
 
 const isFullScreen = ref(false);

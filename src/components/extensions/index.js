@@ -13,7 +13,7 @@ export { default as Table } from "@tiptap/extension-table";
 export { default as TableHeader } from "@tiptap/extension-table-header";
 export { default as TableRow } from "@tiptap/extension-table-row";
 export { default as TextStyle } from "@tiptap/extension-text-style";
-
+export { default as FontFamily } from "@tiptap/extension-font-family";
 
 
 import { Color } from "@tiptap/extension-color";
