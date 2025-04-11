@@ -1,6 +1,6 @@
-# Vue 3 + Tiptap ⚡
+# Vue3-Tiptap ⚡
 
-> 基于 Vue3 +Ant-Design-Vue+Tiptap 二次开发一个富文本编辑器
+> 基于 Vue3 +Ant-Design-Vue+Tiptap 二次开发一个包含常用功能富文本编辑器
 
 <p>
   <a href="https://htmlxudong.github.io/index.html" target="_blank" rel="noopener noreferrer">
@@ -36,8 +36,6 @@ npm run dev
 
 ```
 
-
-
 ## 技术栈 🥇
 
 核心：vue3 + ant-design-vue + vite
@@ -53,7 +51,9 @@ npm run dev
 - [tiptap](https://github.com/ueberdosis/tiptap)
 - [element-tiptap](https://github.com/Leecason/element-tiptap)
 - [tiptap 文档](https://tiptap.dev/docs/editor/introduction)
+- [prosemirror] https://prosemirror.net/
 
 ## 更新日志 📄
 
-- 2024.03.15
+- 2024.03.15 版本 1.0.0
+- 2025.04.15 版本 2.0.0 使用 TypeScript 重构项目 
