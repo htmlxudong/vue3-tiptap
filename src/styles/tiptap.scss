@@ -1,0 +1,281 @@
+:root {
+	--main-primary-border: #ebeef5;
+	--main-primary-background: rgba(0, 0, 0, 0.04);
+	--main-primary-font: #4c4c4c;
+	--main-second-font: rgba(0, 0, 0, 0.5);
+	--main-primary-a: #68cef8;
+	--table-th-border: #f0f0f0;
+	--table-th-background: #fafafa;
+}
+
+.dropdown {
+	list-style: none;
+	&__opeartion {
+		padding: 5px 0;
+		cursor: pointer;
+		transition: 0.2s;
+
+		&:hover {
+			color: #409eff;
+		}
+	}
+}
+
+.editor--fullscreen {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 110;
+}
+
+// tiptap 富文本样式
+.tiptap {
+	padding: 10px;
+	min-height: 250px;
+	color: var(--main-primary-font);
+	.x-underline {
+		text-underline-offset: 0.3em;
+	}
+	.x-blockquote {
+		border-left: 3px solid var(--main-primary-border);
+		padding-left: 15px;
+		line-height: 2;
+	}
+	.x-link {
+		color: var(--main-primary-a);
+		text-decoration: underline;
+	}
+	hr {
+		border: none;
+		border-top: 1px solid var(--main-primary-border);
+		margin: 1rem 0;
+	}
+	ul,
+	ol {
+		list-style: none;
+		margin-bottom: 0;
+		margin-left: 24px;
+		margin-top: 0;
+		padding-bottom: 5px;
+		padding-left: 0;
+		padding-top: 5px;
+	}
+
+	// 标题
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		line-height: 1.25;
+	}
+
+	h1 {
+		font-size: 24px;
+	}
+	h2 {
+		font-size: 22px;
+	}
+	h3 {
+		font-size: 18px;
+	}
+	h4 {
+		font-size: 16px;
+	}
+
+	// 无序列表
+	ul[data-bullet-style="disc"] {
+		list-style-type: disc;
+	}
+
+	ul[data-bullet-style="circle"] {
+		list-style-type: circle;
+	}
+
+	ul[data-bullet-style="square"] {
+		list-style-type: square;
+	}
+
+	ol[data-ordered-style="chinese"] {
+		counter-reset: list;
+		li > p {
+			counter-increment: list; /* 为每个 li 元素递增计数器 */
+			&::before {
+				content: counter(list, cjk-ideographic) "、";
+				white-space: nowrap;
+			}
+		}
+	}
+	ol[data-ordered-style="decimal"] {
+		list-style: decimal;
+		li > p {
+			&::before {
+				content: "";
+			}
+		}
+	}
+	ol[data-ordered-style="circle"] {
+		list-style-type: none;
+		counter-reset: circle;
+		li {
+			counter-increment: circle;
+			& > p {
+				&::before {
+					color: var(--main-font-color);
+					width: 15px !important;
+					height: 15px;
+					content: counter(circle);
+					white-space: nowrap;
+					border: 1px solid var(--main-font-color);
+					border-radius: 50%;
+					text-align: center !important;
+					font-size: 15px;
+				}
+			}
+		}
+	}
+	ol[data-ordered-style="lower-alpha"] {
+		list-style-type: lower-alpha;
+		li > p {
+			&::before {
+				content: "";
+			}
+		}
+	}
+	ol[data-ordered-style="letter"] {
+		counter-reset: letter;
+		list-style-type: none;
+		li {
+			counter-increment: letter;
+			& > p {
+				&::before {
+					content: counter(letter, upper-alpha) ".";
+				}
+			}
+		}
+	}
+	ol[data-ordered-style="roman"] {
+		list-style-type: none;
+		counter-reset: roman-counter;
+		li {
+			counter-increment: roman-counter;
+			& > p {
+				&::before {
+					content: counter(roman-counter, lower-roman) ". ";
+					left: -5px;
+					line-height: 1;
+					margin-left: -24px;
+					position: relative;
+					text-align: right;
+					top: 0;
+					width: 24px;
+					border: none;
+				}
+			}
+		}
+	}
+
+	// 表格
+	table {
+		border-collapse: collapse;
+		table-layout: fixed;
+		width: 100%;
+		margin: 0;
+		overflow: hidden;
+
+		td,
+		th {
+			min-width: 1em;
+			border: 1px solid var(--table-th-border);
+			padding: 10px;
+			vertical-align: top;
+			box-sizing: border-box;
+			position: relative;
+			> * {
+				margin-bottom: 0;
+			}
+		}
+
+		th {
+			font-weight: bold;
+			text-align: left;
+			background-color: var(--table-th-background);
+		}
+
+		.selectedCell:after {
+			z-index: 2;
+			position: absolute;
+			content: "";
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			background: var(--main-primary-background);
+			pointer-events: none;
+		}
+
+		.column-resize-handle {
+			position: absolute;
+			right: -2px;
+			top: 0;
+			bottom: -2px;
+			width: 4px;
+			background-color: var(--main-select-font-color);
+			pointer-events: none;
+		}
+	}
+	// 缩进
+	@for $i from 1 through 7 {
+		$indent-margin-base: 30px;
+
+		*[data-indent="#{$i}"] {
+			margin-left: $indent-margin-base * $i !important;
+		}
+	}
+}
+
+// 查找替换文本颜色
+.search-highlight {
+	background-color: #fef08a;
+}
+.search-highlight-current {
+	background-color: green;
+}
+::selection {
+	background-color: var(--main-primary-border);
+}
+
+// 工具栏样式
+.tool {
+	border: 1px solid transparent;
+	box-sizing: border-box;
+	border-radius: 5px;
+	color: var(--main-icon-color);
+	cursor: pointer;
+	transition: all 0.2s ease-in-out;
+	width: 35px;
+	height: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	vertical-align: "middle";
+}
+.tool:hover {
+	background: var(--main-primary-background);
+}
+.tool--active {
+	background-color: var(--main-primary-background);
+	color: var(--main-select-font-color);
+}
+// 字数统计
+.words {
+	position: absolute;
+	right: 10px;
+	bottom: 5px;
+	font-size: 12px;
+	color: var(--main-second-font);
+}
