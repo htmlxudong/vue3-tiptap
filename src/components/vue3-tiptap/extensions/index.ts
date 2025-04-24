@@ -21,6 +21,8 @@ export { default as searchReplace } from "./search-replace";
 export { default as Iframe } from "./iframe";
 export { default as CustomTextStyle } from "./text-style";
 export { default as FormatBrush } from "./format-brush";
+export { default as LineHeight } from "./line-height";
+
 
 import { createLowlight, common } from "lowlight";
 
