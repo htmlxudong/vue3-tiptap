@@ -10,6 +10,8 @@
 		<FormatBrush :editor="editor" />
 		<!-- 字号 -->
 		<FontSize :editor="editor" />
+		<!-- 行高 -->
+		<LineHeight :editor="editor" />
 		<FontColor :editor="editor" />
 		<BgColor :editor="editor" />
 		<HeaderTool :editor="editor" />
@@ -61,6 +63,7 @@ import FindReplace from "./find-replace/find-replace.vue";
 import FontSize from "./font-style/font-size.vue";
 import FontAlign from "./font-style/font-align.vue";
 import FormatBrush from "./format-brush.vue";
+import LineHeight from "./font-style/line-height.vue";
 
 interface ToolbarProps {
 	editor: Editor;
