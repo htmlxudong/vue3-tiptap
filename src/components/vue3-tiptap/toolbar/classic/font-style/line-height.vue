@@ -35,57 +35,34 @@ import { CaretDownOutlined } from "@ant-design/icons-vue";
 const props = defineProps(["modelValue", "editor"]);
 const visible = ref(false);
 
-const content = ref(14);
+const content = ref(1);
 const setClassName = (value: number) => {
 	content.value = value;
-	props.editor.chain().focus().setFontSize(value).run();
+	const lineheight = value * 100 + "%";
+	props.editor.chain().focus().setLineHeight(lineheight).run();
 	visible.value = false;
 };
 
 const options = [
 	{
-		label: "12",
-		value: 12
+		label: "1.0",
+		value: 1
 	},
 	{
-		label: "14",
-		value: 14
+		label: "1.25",
+		value: 1.25
 	},
 	{
-		label: "16",
-		value: 16
+		label: "2.0",
+		value: 2.0
 	},
 	{
-		label: "18",
-		value: 18
+		label: "2.5",
+		value: 2.5
 	},
 	{
-		label: "22",
-		value: 22
-	},
-	{
-		label: "24",
-		value: 24
-	},
-	{
-		label: "26",
-		value: 26
-	},
-	{
-		label: "28",
-		value: 28
-	},
-	{
-		label: "36",
-		value: 36
-	},
-	{
-		label: "48",
-		value: 48
-	},
-	{
-		label: "72",
-		value: 72
+		label: "3.0",
+		value: 3.0
 	}
 ];
 </script>

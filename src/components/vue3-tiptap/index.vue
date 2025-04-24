@@ -36,7 +36,8 @@ import {
 	searchReplace,
 	Iframe,
 	CustomTextStyle,
-	FormatBrush
+	FormatBrush,
+	LineHeight
 } from "./extensions/index";
 
 defineProps<TiptapProps>();
@@ -83,7 +84,8 @@ const extensions = [
 	searchReplace,
 	Iframe,
 	CustomTextStyle,
-	FormatBrush
+	FormatBrush,
+	LineHeight
 ];
 
 const wordCount = ref(0);
