@@ -4,7 +4,7 @@
 
 <p>
   <a href="https://htmlxudong.github.io/index.html" target="_blank" rel="noopener noreferrer">
-    <img width="100%" src="./public/editor.png" alt="vue3-editor"/>
+    <img width="100%" src="./public/facio.png" alt="vue3-editor"/>
   </a>
 </p>
 
