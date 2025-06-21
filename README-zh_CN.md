@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://htmlxudong.github.io/index.html" target="_blank" rel="noopener noreferrer">
-    <img width="300"  src="./public/facio.png" alt="vue3-editor"/>
+    <img width="200" src="./public/facio.png" alt="vue3-editor"/>
   </a>
 </p>
 
@@ -34,7 +34,6 @@ English | [简体中文](./README-zh_CN.md)
 - 查找与替换
 - 粗体
 
--
 
 ## 🔨 基础使用
 

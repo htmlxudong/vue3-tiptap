@@ -2,9 +2,9 @@
 
 > 基于 Vue3 +Ant-Design-Vue+Tiptap 二次开发一个包含常用功能富文本编辑器
 
-<p>
+<p align="center">
   <a href="https://htmlxudong.github.io/index.html" target="_blank" rel="noopener noreferrer">
-    <img width="100%" src="./public/facio.png" alt="vue3-editor"/>
+    <img width="200" src="./public/facio.png" alt="vue3-editor"/>
   </a>
 </p>
 
@@ -30,7 +30,6 @@
 - 查找与替换
 - 粗体
 
-- 
 
 
 ## 克隆代码到本地
