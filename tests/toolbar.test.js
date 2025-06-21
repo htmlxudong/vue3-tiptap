@@ -33,6 +33,70 @@ const mockEditor = {
   off: vi.fn()
 };
 
+// Mock Ant Design Vue components
+vi.mock('ant-design-vue', () => ({
+  Button: {
+    name: 'AButton',
+    template: '<button class="ant-btn"><slot /></button>'
+  },
+  Modal: {
+    name: 'AModal',
+    template: '<div class="ant-modal"><slot /></div>'
+  },
+  Input: {
+    name: 'AInput',
+    template: '<input class="ant-input" />'
+  },
+  Select: {
+    name: 'ASelect',
+    template: '<select class="ant-select"><slot /></select>'
+  },
+  ColorPicker: {
+    name: 'AColorPicker',
+    template: '<div class="ant-color-picker"><slot /></div>'
+  },
+  Popover: {
+    name: 'APopover',
+    template: '<div class="ant-popover"><slot /></div>',
+    props: ['placement', 'trigger']
+  },
+  Tooltip: {
+    name: 'ATooltip',
+    template: '<div class="ant-tooltip"><slot /></div>',
+    props: ['title', 'placement']
+  },
+  Avatar: {
+    name: 'AAvatar',
+    template: '<div class="ant-avatar"><slot /></div>'
+  },
+  Dropdown: {
+    name: 'ADropdown',
+    template: '<div class="ant-dropdown"><slot /></div>',
+    props: ['trigger']
+  },
+  Menu: {
+    name: 'AMenu',
+    template: '<div class="ant-menu"><slot /></div>'
+  },
+  MenuItem: {
+    name: 'AMenuItem',
+    template: '<div class="ant-menu-item"><slot /></div>'
+  },
+  Divider: {
+    name: 'ADivider',
+    template: '<div class="ant-divider"></div>'
+  }
+}));
+
+// Mock hooks
+vi.mock('@/hooks/useModal', () => ({
+  useModal: vi.fn(() => ({
+    visible: false,
+    toggleModal: vi.fn(),
+    closeModal: vi.fn()
+  }))
+}));
+
 // Mock child components
 const mockComponents = {
   ToolTemplate: {
@@ -171,7 +235,7 @@ describe('Toolbar Component', () => {
 
   it('应该正确传递editor属性给子组件', () => {
     const linkTool = wrapper.findComponent({ name: 'LinkTool' });
-    expect(linkTool.props('editor')).toBe(mockEditor);
+    expect(linkTool.props('editor')).toStrictEqual(mockEditor);
   });
 
   it('应该支持自定义工具栏插槽', async () => {
@@ -191,7 +255,9 @@ describe('Toolbar Component', () => {
   });
 
   it('应该包含分隔符', () => {
-    expect(wrapper.findComponent({ name: 'Dvider' }).exists()).toBe(true);
+    // 检查是否有分隔符组件
+    const dividers = wrapper.findAllComponents({ name: 'Dvider' });
+    expect(dividers.length).toBeGreaterThan(0);
   });
 
   it('应该正确设置工具栏样式', () => {

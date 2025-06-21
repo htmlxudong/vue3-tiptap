@@ -4,7 +4,6 @@
 
 		<!-- 链接 -->
 		<LinkTool :editor="editor" />
-		
 		<Dvider />
 		<!-- 格式刷 -->
 		<FormatBrush :editor="editor" />
