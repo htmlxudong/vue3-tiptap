@@ -1,4 +1,4 @@
-import { Node } from "@tiptap/core";
+import { Node, mergeAttributes } from "@tiptap/core";
 import { VueNodeViewRenderer } from "@tiptap/vue-3";
 import VideoView from "../extension-view/video-view.vue";
 import { DEFAULT_VIDEO_WIDTH } from "@/utils/constant";
@@ -27,6 +27,9 @@ const Video = Node.create<VideoAttributes>({
 	},
 	draggable: true,
 
+	// 添加内容配置
+	content: "",
+
 	addAttributes() {
 		return {
 			...this.parent?.(),
@@ -44,6 +47,26 @@ const Video = Node.create<VideoAttributes>({
 			}
 		};
 	},
+
+	// 添加 parseHTML 方法
+	parseHTML() {
+		return [
+			{
+				tag: "video"
+			}
+		];
+	},
+
+	// 添加 renderHTML 方法
+	renderHTML({ HTMLAttributes }) {
+		return [
+			"video",
+			mergeAttributes(HTMLAttributes, {
+				controls: "true"
+			})
+		];
+	},
+
 	addCommands() {
 		return {
 			setVideo:

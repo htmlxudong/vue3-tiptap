@@ -71,7 +71,6 @@ const handleEmit = async ({ url, file, type }: EmitType) => {
 	} else {
 		props.editor.chain().focus().setVideo({ src: url }).run();
 	}
-	props.editor.chain().focus().setVideo({ src: url }).run();
 	uploadRef.value.closeModal();
 	insertRef.value.closeModal();
 };

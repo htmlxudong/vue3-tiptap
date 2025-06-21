@@ -1,4 +1,8 @@
-import XTiptap from "./index.vue";
+import Vue3TipTap from "./index.vue";
 
-export { XTiptap };
-export default XTiptap;
+
+import "@/styles/reset.scss";
+import "@/styles/tiptap.scss";
+
+export { Vue3TipTap };
+export default Vue3TipTap;

@@ -26,7 +26,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue"
-import Vue3Tiptap from "../vue3-tiptap";
+import Vue3Tiptap from "@/components/vue3-tiptap";
 import Header from "./header/header.vue";
 
 const content = ref("<p>I'm running Tiptap with Vue.js. 🎉</p>");
