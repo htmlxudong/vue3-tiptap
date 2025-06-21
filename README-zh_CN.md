@@ -2,16 +2,20 @@
 
 > 基于 Vue3 +Ant-Design-Vue+Tiptap 二次开发一个包含常用功能富文本编辑器
 
-<p>
+<p align="center">
   <a href="https://htmlxudong.github.io/index.html" target="_blank" rel="noopener noreferrer">
-    <img width="100%" src="./public/editor.png" alt="vue3-editor"/>
+    <img width="300"  src="./public/facio.png" alt="vue3-editor"/>
   </a>
 </p>
 
+English | [简体中文](./README-zh_CN.md)
+
+## 快速体验
+
 [在线预览 github](https://htmlxudong.github.io/index.html)
 
+## 编辑器特性
 
-## 编辑器功能
 - 撤销/重做
 - 清除格式
 - 下划线
@@ -30,10 +34,9 @@
 - 查找与替换
 - 粗体
 
-- 
+-
 
-
-## 克隆代码到本地
+## 🔨 基础使用
 
 ```shell
 
@@ -45,18 +48,13 @@ git clone https://gitee.com/xd_web/vue3-tiptap.git
 
 ```
 
-## 安装依赖 📦
+```js
+import { createApp } from "vue";
+import vue3tiptap from "vue3-tiptap";
+import App from "./app.vue";
 
-```
-pnpm install or npm install
-
-```
-
-## 运行项目 🚀
-
-```
-npm run dev
-
+const app = createApp(App);
+app.use(vue3tiptap);
 ```
 
 ## 技术栈 🥇
@@ -79,4 +77,8 @@ npm run dev
 ## 更新日志 📄
 
 - 2024.03.15 版本 1.0.0
-- 2025.04.15 版本 2.0.0 使用 TypeScript 重构项目 
+- 2025.04.15 版本 2.0.0 使用 TypeScript 重构项目
+
+## 开源协议
+
+TDesign 遵循 [MIT 协议](https://github.com/Tencent/tdesign-vue-next/LICENSE)。
