@@ -21,8 +21,6 @@ declare module "@tiptap/core" {
 
 const Pdf = Node.create<PdfOptions>({
 	name: "pdf",
-
-	// schema
 	group: "block",
 	selectable: false,
 	draggable: true,
