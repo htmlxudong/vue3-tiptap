@@ -1,6 +1,6 @@
 {
   "name": "vue3-tiptap",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "type": "module",
   "main": "dist/vue3-tiptap.umd.cjs",
   "module": "dist/vue3-tiptap.js",

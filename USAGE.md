@@ -3,7 +3,7 @@
 ## 安装
 
 ```bash
-npm install vue3-tiptap
+npm install vue3-tiptap@2.0.1
 ```
 
 ## 基本使用
@@ -19,7 +19,6 @@ npm install vue3-tiptap
 import { ref } from 'vue'
 import Vue3TipTap from 'vue3-tiptap'
 
-
 const content = ref('<p>Hello World!</p>')
 </script>
 ```
@@ -30,6 +29,14 @@ const content = ref('<p>Hello World!</p>')
 
 ```javascript
 import 'vue3-tiptap/dist/vue3-tiptap.css'
+```
+
+## 必需依赖
+
+确保你的项目中安装了以下 peerDependencies：
+
+```bash
+npm install vue@^3.0.0 ant-design-vue@^4.0.0 @tiptap/vue-3@^2.0.0 @tiptap/starter-kit@^2.0.0
 ```
 
 ## 功能特性
@@ -51,6 +58,22 @@ import 'vue3-tiptap/dist/vue3-tiptap.css'
 - 代码块
 - 查找替换
 - 粗体
+
+## 常见问题
+
+### 插件冲突错误
+
+如果遇到 `Uncaught RangeError: Adding different instances of a keyed plugin` 错误，请确保：
+
+1. 使用最新版本 `vue3-tiptap@2.0.1`
+2. 正确安装所有 peerDependencies
+3. 不要在同一个项目中重复引入 Tiptap 相关插件
+
+### 样式问题
+
+如果样式显示异常，请确保：
+1. 正确引入了 CSS 文件
+2. 检查是否有样式冲突
 
 ## 更多示例
 

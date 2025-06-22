@@ -35,7 +35,7 @@ import {
 	CustomIndent,
 	CodeBlockLights,
 	lowlight,
-	searchReplace,
+	SearchReplace,
 	Iframe,
 	CustomTextStyle,
 	FormatBrush,
@@ -56,6 +56,7 @@ const extensions = [
 	StarterKit.configure({
 		orderedList: false,
 		bulletList: false,
+		codeBlock: false,
 		blockquote: {
 			HTMLAttributes: {
 				class: "x-blockquote"
@@ -90,12 +91,12 @@ const extensions = [
 	CustomOrderedList,
 	CustomBulletList,
 	CustomIndent,
-	CodeBlockLights.configure({ lowlight }),
-	searchReplace,
+	CodeBlockLights.configure({ lowlight }), 
+	SearchReplace,
 	Iframe,
 	CustomTextStyle,
 	FormatBrush,
-	LineHeight,
+	LineHeight, 
 	Pdf
 ];
 
@@ -109,6 +110,11 @@ const editor = useEditor({
 		const html = editor.getHTML();
 		emit('update:modelValue', html);
 	}
+});
+
+// 暴露编辑器实例
+defineExpose({
+	editor
 });
 
 const isFullScreen = ref(false);

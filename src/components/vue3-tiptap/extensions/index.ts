@@ -7,6 +7,7 @@ export { default as FontFamily } from "@tiptap/extension-font-family";
 export { default as Table } from "@tiptap/extension-table";
 export { default as TableHeader } from "@tiptap/extension-table-header";
 export { default as TableRow } from "@tiptap/extension-table-row";
+export { default as TableCell } from "@tiptap/extension-table-cell";
 export { default as Link } from "@tiptap/extension-link";
 
 // 自定义插件
@@ -17,7 +18,7 @@ export { default as CustomOrderedList } from "./ordered-list";
 export { default as CustomBulletList } from "./bullet-list";
 export { default as CustomIndent } from "./indent";
 export { default as CodeBlockLights } from "./code-block-light";
-export { default as searchReplace } from "./search-replace";
+export { default as SearchReplace } from "./search-replace";
 export { default as Iframe } from "./iframe";
 export { default as CustomTextStyle } from "./text-style";
 export { default as FormatBrush } from "./format-brush";
