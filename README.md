@@ -72,14 +72,14 @@ code formatting：preitter
 
 ## Thanks. 🌸
 
-该项目主要借鉴于以下这些项目
+The project is mainly based on the following projects
 
 - [tiptap](https://github.com/ueberdosis/tiptap)
 - [element-tiptap](https://github.com/Leecason/element-tiptap)
-- [tiptap 文档](https://tiptap.dev/docs/editor/introduction)
+- [tiptap document](https://tiptap.dev/docs/editor/introduction)
 - [prosemirror](https://prosemirror.net/)
 
-## 更新日志 📄
+## changelog 📄
 
-- 2024.03.15 版本 1.0.0
-- 2025.04.15 版本 2.0.0 使用 TypeScript 重构项目
+- 2024.03.15 version 1.0.0
+- 2025.04.15 version 2.0.0 Refactor project using TypeScript
