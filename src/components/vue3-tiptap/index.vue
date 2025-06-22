@@ -92,7 +92,7 @@ const extensions = [
 	CustomBulletList,
 	CustomIndent,
 	CodeBlockLights.configure({ lowlight }), 
-	SearchReplace,
+	// SearchReplace,
 	Iframe,
 	CustomTextStyle,
 	FormatBrush,
