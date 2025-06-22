@@ -26,13 +26,16 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, "src/components/vue3-tiptap/index.ts"),
       name: "Vue3TipTap",
-      fileName: "vue3-tiptap"
+      fileName: (format) => `vue3-tiptap.${format === 'es' ? 'js' : 'umd.cjs'}`
     },
     rollupOptions: {
-      external: ["vue"],
+      external: ["vue", "ant-design-vue", "@tiptap/vue-3", "@tiptap/starter-kit"],
       output: {
         globals: {
-          vue: "Vue"
+          vue: "Vue",
+          "ant-design-vue": "antd",
+          "@tiptap/vue-3": "TiptapVue3",
+          "@tiptap/starter-kit": "StarterKit"
         }
       }
     }

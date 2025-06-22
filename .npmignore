@@ -1,0 +1,44 @@
+# 开发文件
+.vscode/
+.idea/
+*.log
+*.tsbuildinfo
+
+# 依赖
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 构建文件
+dist/
+coverage/
+
+# 测试文件
+tests/
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts
+
+# 文档和示例
+docs/
+examples/
+demo/
+public/
+
+# 配置文件
+.vite/
+.vitest/
+.eslintrc*
+.prettierrc*
+tsconfig.json
+tsconfig.app.json
+tsconfig.node.json
+vite.config.ts
+vitest.config.ts
+
+# 其他
+.git/
+.gitignore
+README-zh_CN.md 
