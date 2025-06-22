@@ -2,9 +2,9 @@
 
 > Based on Vue3 +Ant-Design-Vue+Tiptap secondary development of a rich text editor with common functions
 
-<p>
+<p align="center">
   <a href="https://htmlxudong.github.io/index.html" target="_blank" rel="noopener noreferrer">
-    <img width="100%" src="./public/facio.png" alt="vue3-editor"/>
+    <img width="200"  src="./public/facio.png" alt="vue3-editor"/>
   </a>
 </p>
 
@@ -33,8 +33,6 @@ English | [简体中文](./README-zh_CN.md)
 - Code block
 - Find and replace
 - Bold
-
-
 
 ## Clone the code locally
 
