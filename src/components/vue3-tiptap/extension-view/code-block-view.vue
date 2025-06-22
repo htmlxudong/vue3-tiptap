@@ -8,7 +8,9 @@
 			</a-select>
 		</div>
 		<!-- NodeViewContent将可编辑内容添加到节点视图中 -->
-		<pre><code><node-view-content /></code></pre>
+		<div class="pre-wrap">
+			<pre><code><node-view-content /></code></pre>
+		</div>
 	</node-view-wrapper>
 </template>
 
@@ -31,22 +33,78 @@ const selectedLanguage = computed({
 
 <style lang="scss" scoped>
 .code-block {
-	border: 1px solid #eee;
-	background-color: #272c35;
-	border-radius: 5px;
-	color: #fff;
-	padding: 10px 20px;
+	border: 1px solid #e1e4e8;
+	border-radius: 6px;
+	overflow: hidden;
+	
 	.language {
-		padding-bottom: 10px;
+		padding: 10px 20px;
+		background-color: #f6f8fa;
+		border-bottom: 1px solid #e1e4e8;
 		:deep(.ant-select) {
 			width: 100px;
 		}
 		:deep(.ant-select-selector) {
-			background-color: #272c35;
-			color: #fff;
+			background-color: #f6f8fa;
+			border: 1px solid #d0d7de;
 		}
-		:deep(.ant-select-arrow) {
-			color: #fff;
+	}
+	
+	.pre-wrap{
+		background: #ffffff;
+		padding: 16px;
+		
+		// 确保代码块内的语法高亮样式正确显示
+		:deep(pre) {
+			margin: 0;
+			background: transparent;
+			font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+			font-size: 14px;
+			line-height: 1.45;
+			overflow-x: auto;
+			white-space: pre;
+		}
+		
+		:deep(code) {
+			background: transparent;
+			padding: 0;
+			font-family: inherit;
+			font-size: inherit;
+			color: inherit;
+			border-radius: 0;
+		}
+		
+		// 确保highlight.js的样式能够正确应用
+		:deep(.hljs) {
+			background: transparent;
+			padding: 0;
+			color: #24292f;
+		}
+		
+		// 确保语法高亮颜色正确显示
+		:deep(.hljs-keyword) {
+			color: #d73a49;
+		}
+		
+		:deep(.hljs-string) {
+			color: #032f62;
+		}
+		
+		:deep(.hljs-comment) {
+			color: #6a737d;
+			font-style: italic;
+		}
+		
+		:deep(.hljs-number) {
+			color: #005cc5;
+		}
+		
+		:deep(.hljs-function) {
+			color: #6f42c1;
+		}
+		
+		:deep(.hljs-variable) {
+			color: #e36209;
 		}
 	}
 }

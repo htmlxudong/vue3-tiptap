@@ -5,14 +5,12 @@
 				<template #title>
 					<span> 有序列表</span>
 				</template>
-				<div
-					:class="[
-						'tool ordered_button',
-						{
-							'tool--active': isActive
-						}
-					]"
-				>
+				<div :class="[
+					'tool ordered_button',
+					{
+						'tool--active': isActive
+					}
+				]">
 					<OrderedListOutlined style="font-size: 18px" />
 					<CaretDownOutlined style="font-size: 10px" />
 				</div>
@@ -21,13 +19,8 @@
 
 		<template #content>
 			<div class="order-lists">
-				<div
-					v-for="item in orderList"
-					:key="item.type"
-					class="order-lists-item"
-					@click="setDataSet(item.type)"
-					:class="[{ 'order-lists__border': isActive && currentStyle === item.type }]"
-				>
+				<div v-for="item in orderList" :key="item.type" class="order-lists-item" @click="setDataSet(item.type)"
+					:class="[{ 'order-lists__border': isActive && currentStyle === item.type }]">
 					<Icon :name="item.icon" :size="25" />
 				</div>
 			</div>
@@ -105,13 +98,10 @@ const setDataSet = (style: string) => {
 	width: 100px;
 	display: flex;
 	flex-wrap: wrap;
-	gap: 10px;
+	gap:5px;
 	&-item {
 		transition: all 0.2s;
 		cursor: pointer;
-		&:hover {
-			background-color: var(--main-primary-background);
-		}
 	}
 }
 </style>

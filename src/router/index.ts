@@ -1,13 +1,12 @@
 import { createWebHashHistory, createRouter } from 'vue-router'
 
-import DemoVuew from '@/views/demo.vue';
+
 import HomeView from '@/views/home/home.vue'
-import VModelTest from '@/views/v-model-test.vue'
+import Demo from '@/views/demo/index.vue';
 
 const routes = [
   { path: '/', component: HomeView },
-  { path: '/home', component: DemoVuew },
-  { path: '/v-model-test', component: VModelTest },
+  { path: '/demo', component: Demo },     // 测试页面
 ]
 
 const router = createRouter({

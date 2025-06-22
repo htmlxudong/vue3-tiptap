@@ -39,7 +39,8 @@ import {
 	Iframe,
 	CustomTextStyle,
 	FormatBrush,
-	LineHeight
+	LineHeight,
+	Pdf
 } from "./extensions/index";
 
 const props = withDefaults(defineProps<TiptapProps>(), {
@@ -94,7 +95,8 @@ const extensions = [
 	Iframe,
 	CustomTextStyle,
 	FormatBrush,
-	LineHeight
+	LineHeight,
+	Pdf
 ];
 
 const wordCount = ref(0);
