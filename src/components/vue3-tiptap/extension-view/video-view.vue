@@ -40,14 +40,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, onMounted } from "vue";
+import { ref, reactive, computed, onMounted, onUnmounted } from "vue";
 import { NodeViewWrapper, nodeViewProps } from "@tiptap/vue-3";
 import { DeleteOutlined } from "@ant-design/icons-vue";
 import { clamp } from "@/utils/index";
 
 const props = defineProps(nodeViewProps);
-const MIN_SIZE = 20;
-const MAX_SIZE = 4000;
+const MIN_SIZE = 200;
+const MAX_SIZE = 1500;
 
 const resizeStatus = ref(false);
 const resizing = ref(false);
@@ -97,6 +97,8 @@ const onMouseDown = (e: MouseEvent, dir: string) => {
 };
 
 const onMouseMove = (e: MouseEvent) => {
+	if (!resizing.value) return;
+	
 	const { x, y, w, h, dir } = resizerAttrs;
 
 	const translateX = (e.clientX - x) * (/l/.test(dir) ? -1 : 1);
@@ -112,11 +114,15 @@ const onMouseUp = (e: MouseEvent) => {
 	e.preventDefault();
 	e.stopPropagation();
 
-	if (!resizing.value) return;
-	resizing.value = false;
-	resizerAttrs.x = resizerAttrs.y = resizerAttrs.w = resizerAttrs.h = 0;
-	resizerAttrs.dir = "";
+	// 无论 resizing 状态如何，都要清理事件监听器
 	offEvents();
+	
+	// 只有在拖拽状态下才重置状态
+	if (resizing.value) {
+		resizing.value = false;
+		resizerAttrs.x = resizerAttrs.y = resizerAttrs.w = resizerAttrs.h = 0;
+		resizerAttrs.dir = "";
+	}
 };
 
 const onEvents = () => {
@@ -127,6 +133,15 @@ const offEvents = () => {
 	document.removeEventListener("mousemove", onMouseMove, true);
 	document.removeEventListener("mouseup", onMouseUp, true);
 };
+
+const deleteNode = () => {
+	props.deleteNode?.();
+};
+
+// 添加组件卸载时的清理逻辑
+onUnmounted(() => {
+	offEvents();
+});
 </script>
 
 <style lang="scss" scoped>
@@ -180,6 +195,9 @@ const offEvents = () => {
 
 .video-resizer {
 	position: relative;
+	padding:5px;
+	background-color: #eee;
+	border-radius: 5px;
 	&__handler {
 		position: absolute;
 		width: 12px;

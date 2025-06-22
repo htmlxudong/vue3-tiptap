@@ -1,13 +1,8 @@
 <template>
 	<a-modal v-model:open="open" :title="options.title">
 		<a-form-item>
-			<a-upload-dragger
-				v-model:fileList="fileList"
-				name="file"
-				:before-upload="beforeUpload"
-				:show-upload-list="false"
-				:auto-upload="false"
-			>
+			<a-upload-dragger v-model:fileList="fileList" name="file" :before-upload="beforeUpload"
+				:show-upload-list="false" :auto-upload="false">
 				<p class="ant-upload-drag-icon">
 					<inbox-outlined></inbox-outlined>
 				</p>
@@ -47,16 +42,19 @@ const beforeUpload = async (file: File) => {
 	const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
 	const isPDF = file.type === "application/pdf";
 
-	const reg = new RegExp(fileType, "ig");
-	if (!reg.test(file.type)) {
-		message.error("请上传视频格式文件");
-		return false;
-	}
+	// const reg = new RegExp(fileType, "ig");
+	// if (!reg.test(file.type)) {
+	// 	message.error("请上传视频格式文件");
+	// 	return false;
+	// }
 
-	if (isJpgOrPng || isVideoType || isPDF) {
-		const imgBase64 = await _getBase64(file);
-		emit("emitUpload", { url: imgBase64, file, type: "upload" });
-	}
+	// if (isJpgOrPng || isVideoType || isPDF) {
+	// 	const imgBase64 = await _getBase64(file);
+	// 	emit("emitUpload", { url: imgBase64, file, type: "upload" });
+	// }
+
+	const imgBase64 = await _getBase64(file);
+	emit("emitUpload", { url: imgBase64, file, type: "upload" });
 
 	return false;
 };

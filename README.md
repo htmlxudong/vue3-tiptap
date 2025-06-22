@@ -4,14 +4,18 @@
 
 <p>
   <a href="https://htmlxudong.github.io/index.html" target="_blank" rel="noopener noreferrer">
-    <img width="100%" src="./public/editor.png" alt="vue3-editor"/>
+    <img width="100%" src="./public/facio.png" alt="vue3-editor"/>
   </a>
 </p>
 
+English | [简体中文](./README-zh_CN.md)
+
+## 快速体验
+
 [在线预览 github](https://htmlxudong.github.io/index.html)
 
-
 ## 编辑器功能
+
 - 撤销/重做
 - 清除格式
 - 下划线
@@ -29,8 +33,6 @@
 - 代码块
 - 查找与替换
 - 粗体
-
-- 
 
 
 ## 克隆代码到本地
@@ -79,4 +81,4 @@ npm run dev
 ## 更新日志 📄
 
 - 2024.03.15 版本 1.0.0
-- 2025.04.15 版本 2.0.0 使用 TypeScript 重构项目 
+- 2025.04.15 版本 2.0.0 使用 TypeScript 重构项目

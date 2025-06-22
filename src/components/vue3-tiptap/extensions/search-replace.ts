@@ -108,7 +108,7 @@ const searchReplace = Extension.create<SearchReplaceOptions>({
 							emitter.emit("search", this.options);
 							tr.setMeta(searchPluginKey, { decorations });
 						} catch (error) {
-							console.error("Search error:", error);
+							console.error("[@warn/search-replace] Search error:", error);
 						}
 					}
 					return true;

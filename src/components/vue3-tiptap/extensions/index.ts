@@ -22,7 +22,7 @@ export { default as Iframe } from "./iframe";
 export { default as CustomTextStyle } from "./text-style";
 export { default as FormatBrush } from "./format-brush";
 export { default as LineHeight } from "./line-height";
-
+export { default as Pdf } from "./pdf";
 
 import { createLowlight, common } from "lowlight";
 

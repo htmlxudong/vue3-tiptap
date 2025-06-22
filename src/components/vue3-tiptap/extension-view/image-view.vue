@@ -42,7 +42,7 @@
 
 <script setup lang="ts">
 import { NodeViewWrapper, nodeViewProps } from "@tiptap/vue-3";
-import { ref, reactive, computed } from "vue";
+import { ref, reactive, computed, onMounted, onUnmounted } from "vue";
 import { DeleteOutlined } from "@ant-design/icons-vue";
 import { resolveImg } from "@/utils/image";
 import { clamp } from "@/utils/index";
@@ -50,7 +50,7 @@ import { clamp } from "@/utils/index";
 const props = defineProps(nodeViewProps);
 
 const MIN_SIZE = 20;
-const MAX_SIZE = 4000;
+const MAX_SIZE = 1500;
 
 const displayCollection = reactive(["inline", "block", "left", "right"]);
 const maxSize = reactive({
@@ -58,6 +58,7 @@ const maxSize = reactive({
 	height: MAX_SIZE
 });
 const resizing = ref(false);
+const selected = ref(false);
 const resizeState = reactive({
 	w: 0,
 	h: 0,
@@ -88,10 +89,34 @@ const loadImage = async (): Promise<void> => {
 	originalSize.width = result.width;
 	originalSize.height = result.height;
 };
-loadImage();
+
+// 监听选择状态变化
+const updateSelectionState = () => {
+	const { editor } = props;
+	if (editor) {
+		const { from, to } = editor.state.selection;
+		const pos = props.getPos();
+		selected.value = from === to && from === pos;
+	}
+};
+
+onMounted(() => {
+	loadImage();
+	updateSelectionState();
+	
+	// 监听编辑器选择变化
+	props.editor?.on('selectionUpdate', updateSelectionState);
+});
+
+onUnmounted(() => {
+	props.editor?.off('selectionUpdate', updateSelectionState);
+	// 添加鼠标事件清理
+	offEvents();
+});
 
 const selectImage = () => {
 	props.editor?.commands.setNodeSelection(props.getPos());
+	selected.value = true;
 };
 
 // 图片缩放
@@ -107,22 +132,28 @@ const onMouseDown = (e: MouseEvent, dir: string) => {
 
 	let { width, height } = props.node.attrs;
 
-	if (width && !height) {
-		width = width > maxWidth ? maxWidth : width;
-		height = Math.round(width / aspectRatio);
-	} else if (height && !width) {
-		width = Math.round(height * aspectRatio);
-		width = width > maxWidth ? maxWidth : width;
-	} else if (!width && !height) {
-		width = originalWidth > maxWidth ? maxWidth : originalWidth;
-		height = Math.round(width / aspectRatio);
-	} else {
-		width = width > maxWidth ? maxWidth : width;
+	// 确保有有效的尺寸，如果没有则使用原始尺寸
+	if (!width || !height) {
+		if (width && !height) {
+			width = width > maxWidth ? maxWidth : width;
+			height = Math.round(width / aspectRatio);
+		} else if (height && !width) {
+			width = Math.round(height * aspectRatio);
+			width = width > maxWidth ? maxWidth : width;
+		} else {
+			width = originalWidth > maxWidth ? maxWidth : originalWidth;
+			height = Math.round(width / aspectRatio);
+		}
+		
+		// 更新节点属性
+		props.updateAttributes?.({
+			width,
+			height
+		});
 	}
 
 	resizeState.x = e.clientX;
 	resizeState.y = e.clientY;
-
 	resizeState.w = width;
 	resizeState.h = height;
 	resizeState.dir = dir;
@@ -134,29 +165,71 @@ const onMouseDown = (e: MouseEvent, dir: string) => {
 const onMouseMove = (e: MouseEvent) => {
 	e.preventDefault();
 	e.stopPropagation();
+	
+	// 添加状态检查，确保只有在拖拽状态下才执行
+	if (!resizing.value) return;
 
 	const { x, y, w, h, dir } = resizeState;
+	const aspectRatio = originalSize.width / originalSize.height; // 获取原始宽高比
 
 	const dx = (e.clientX - x) * (/l/.test(dir) ? -1 : 1);
 	const dy = (e.clientY - y) * (/t/.test(dir) ? -1 : 1);
 
+	// 根据拖拽方向计算新的尺寸，保持等比缩放
+	let newWidth, newHeight;
+
+	if (/r/.test(dir)) {
+		// 右侧拖拽，以宽度变化为主
+		newWidth = clamp(w + dx, MIN_SIZE, maxSize.width);
+		newHeight = Math.round(newWidth / aspectRatio);
+		newHeight = clamp(newHeight, MIN_SIZE, maxSize.height);
+		// 如果高度超出限制，重新计算宽度
+		if (newHeight >= maxSize.height) {
+			newHeight = maxSize.height;
+			newWidth = Math.round(newHeight * aspectRatio);
+		}
+	} else if (/l/.test(dir)) {
+		// 左侧拖拽，以宽度变化为主
+		newWidth = clamp(w - dx, MIN_SIZE, maxSize.width);
+		newHeight = Math.round(newWidth / aspectRatio);
+		newHeight = clamp(newHeight, MIN_SIZE, maxSize.height);
+		// 如果高度超出限制，重新计算宽度
+		if (newHeight >= maxSize.height) {
+			newHeight = maxSize.height;
+			newWidth = Math.round(newHeight * aspectRatio);
+		}
+	} else {
+		// 如果没有水平拖拽，以高度变化为主
+		newHeight = clamp(h + dy, MIN_SIZE, maxSize.height);
+		newWidth = Math.round(newHeight * aspectRatio);
+		newWidth = clamp(newWidth, MIN_SIZE, maxSize.width);
+		// 如果宽度超出限制，重新计算高度
+		if (newWidth >= maxSize.width) {
+			newWidth = maxSize.width;
+			newHeight = Math.round(newWidth / aspectRatio);
+		}
+	}
+
 	props.updateAttributes?.({
-		width: clamp(w + dx, MIN_SIZE, maxSize.width),
-		height: Math.max(h + dy, MIN_SIZE)
+		width: newWidth,
+		height: newHeight
 	});
 };
 
 const onMouseUp = (e: MouseEvent) => {
 	e.preventDefault();
 	e.stopPropagation();
-	if (!resizing.value) return;
-
-	resizing.value = false;
-
-	resizeState.x = resizeState.y = resizeState.w = resizeState.h = 0;
-	resizeState.dir = "";
+	
+	// 无论 resizing 状态如何，都要清理事件监听器
 	offEvents();
-	selectImage();
+	
+	// 只有在拖拽状态下才重置状态
+	if (resizing.value) {
+		resizing.value = false;
+		resizeState.x = resizeState.y = resizeState.w = resizeState.h = 0;
+		resizeState.dir = "";
+		selectImage();
+	}
 };
 
 const onEvents = () => {

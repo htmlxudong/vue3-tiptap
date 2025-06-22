@@ -19,11 +19,8 @@
 			</div>
 		</a-tooltip>
 	</a-popover>
-	<InsertPDF
-		ref="insertRef"
-		@emitInsert="handleEmit"
-		:options="{ title: '插入PDF地址', placeholder: 'URL of PDF', headers }"
-	>
+	<InsertPDF ref="insertRef" @emitInsert="handleEmit"
+		:options="{ title: '插入PDF地址', placeholder: 'URL of PDF', headers }">
 		<a-form-item name="type" label="插入类型">
 			<a-radio-group v-model:value="showType" button-style="solid">
 				<a-radio-button :value="1">附件形式</a-radio-button>
@@ -64,8 +61,15 @@ const headers = [
 const showType = ref(1);
 const handleEmit = async ({ url, file, type }: { url: string; file: File; type: string }) => {
 	if (type === "upload") {
-		const src = await _getBase64(file);
-		props.editor.chain().focus().setIframe({ src }).run();
+		const fileName = file.name || 'document.pdf';
+		
+		const blob = new Blob([file], { type: 'application/pdf' });
+		const blobUrl = URL.createObjectURL(blob);
+		
+		props.editor.chain().focus().setPdf({ 
+			src: blobUrl, 
+			fileName 
+		}).run();
 	} else {
 		if (showType.value === 1) {
 			props.editor.commands.insertContent({
@@ -82,7 +86,15 @@ const handleEmit = async ({ url, file, type }: { url: string; file: File; type: 
 			});
 		}
 		if (showType.value === 2) {
-			props.editor.chain().focus().setIframe({ src: url }).run();
+			if (url.toLowerCase().includes('.pdf') || url.includes('application/pdf')) {
+				const fileName = url.split('/').pop() || 'document.pdf';
+				props.editor.chain().focus().setPdf({ 
+					src: url, 
+					fileName 
+				}).run();
+			} else {
+				props.editor.chain().focus().setIframe({ src: url }).run();
+			}
 		}
 	}
 
