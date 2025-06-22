@@ -1,6 +1,6 @@
 # Vue3-Tiptap ⚡
 
-> 基于 Vue3 +Ant-Design-Vue+Tiptap 二次开发一个包含常用功能富文本编辑器
+> Based on Vue3 +Ant-Design-Vue+Tiptap secondary development of a rich text editor with common functions
 
 <p>
   <a href="https://htmlxudong.github.io/index.html" target="_blank" rel="noopener noreferrer">
@@ -10,32 +10,33 @@
 
 English | [简体中文](./README-zh_CN.md)
 
-## 快速体验
+## Quick Experience
 
-[在线预览 github](https://htmlxudong.github.io/index.html)
+[Online preview github](https://htmlxudong.github.io/index.html)
 
-## 编辑器功能
+## Editor Function
 
-- 撤销/重做
-- 清除格式
-- 下划线
-- 图片
-- 列表
-- 表格
-- 对齐方式
-- 字体
-- 标题
-- 背景颜色
-- 字体颜色
-- 行高
-- 子号
-- 格式刷
-- 代码块
-- 查找与替换
-- 粗体
+- Undo/Redo
+- Clear format
+- Underline
+- Picture
+- List
+- Form
+- Alignment
+- Font
+- Title
+- Background color
+- Font color
+- Line height
+- child number
+- Format swipe
+- Code block
+- Find and replace
+- Bold
 
 
-## 克隆代码到本地
+
+## Clone the code locally
 
 ```shell
 
@@ -47,31 +48,31 @@ git clone https://gitee.com/xd_web/vue3-tiptap.git
 
 ```
 
-## 安装依赖 📦
+## installation dependency 📦
 
 ```
 pnpm install or npm install
 
 ```
 
-## 运行项目 🚀
+## run project 🚀
 
 ```
 npm run dev
 
 ```
 
-## 技术栈 🥇
+## Technology Stack 🥇
 
-核心：vue3 + ant-design-vue + vite
+core：vue3 + ant-design-vue + vite
 
-代码提交：husky、commitlint
+commit：husky、commitlint
 
-代码格式化：preitter
+code formatting：preitter
 
-## 感谢 🌸
+## Thanks. 🌸
 
-该项目主要借鉴于以下这些项目。
+该项目主要借鉴于以下这些项目
 
 - [tiptap](https://github.com/ueberdosis/tiptap)
 - [element-tiptap](https://github.com/Leecason/element-tiptap)
