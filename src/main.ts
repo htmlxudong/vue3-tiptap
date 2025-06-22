@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import "./styles/reset.scss";
 import "./styles/tiptap.scss";
+
 import AntdCom from "@/plugin/antd";
 import router from './router/index'
 

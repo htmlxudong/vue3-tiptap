@@ -25,6 +25,7 @@ export { default as LineHeight } from "./line-height";
 export { default as Pdf } from "./pdf";
 
 import { createLowlight, common } from "lowlight";
+import "highlight.js/styles/github.css";
 
 const lowlight = createLowlight(common);
 
