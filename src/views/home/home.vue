@@ -1,6 +1,5 @@
 <template>
 	<div class="home">
-		<Header />
 		<div class="left">
 			<div class="card-wrapper">
 				<div class="title-wrap">
@@ -27,7 +26,7 @@
 <script setup lang="ts">
 import { ref } from "vue"
 import Vue3Tiptap from "@/components/vue3-tiptap";
-import Header from "./header/header.vue";
+
 
 const content = ref("<p>I'm running Tiptap with Vue.js. 🎉</p>");
 
@@ -43,7 +42,6 @@ const content = ref("<p>I'm running Tiptap with Vue.js. 🎉</p>");
 }
 
 .home {
-	padding-top: 64px;
 	width: 100%;
 	height: 100vh;
 	perspective: 700px;

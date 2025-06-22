@@ -1,6 +1,6 @@
 <template>
-	<div>
-		<Header/>
+	<div class="app-wrapper">
+		<Header />
 		<router-view />
 	</div>
 </template>
@@ -9,4 +9,9 @@
 import Header from "@/components/header/header.vue";
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.app-wrapper {
+	padding-top: 64px;
+}
+</style>
+·

@@ -5,6 +5,16 @@
 		</div>
 		<ul class="list">
 			<!-- <li class="item"><span>文档</span></li> -->
+			 <li class="item">
+				<span>
+					<router-link class="a-tag" to="/">Home</router-link>
+				</span>
+			</li>
+			<li class="item">
+				<span>
+					<router-link class="a-tag" to="demo">Demo</router-link>
+				</span>
+			</li>
 			<li class="item">
 				<span>
 					<a class="a-tag" href="https://tiptap.dev/docs" target="_blank">Tiptap</a>
@@ -12,11 +22,11 @@
 			</li>
 
 			<!-- <li class="item"><span>语言</span></li>
-      <li class="item"><span>主题</span></li> -->
+            <li class="item"><span>主题</span></li> -->
 			<li class="item">
-				<a class="a-tag" href="https://github.com/htmlxudong/vue3-tiptap" target="_blank"
-					><GithubOutlined
-				/></a>
+				<a class="a-tag" href="https://github.com/htmlxudong/vue3-tiptap" target="_blank">
+					<GithubOutlined />
+				</a>
 			</li>
 		</ul>
 	</header>
@@ -37,6 +47,7 @@ import { GithubOutlined } from "@ant-design/icons-vue";
 	inherits: false;
 	initial-value: #333;
 }
+
 @property --houdini-hover {
 	syntax: "<color>";
 	inherits: false;
@@ -56,9 +67,11 @@ import { GithubOutlined } from "@ant-design/icons-vue";
 	background-color: #fff;
 	z-index: 10;
 	box-shadow: 0 0 5px #fee2e2;
+
 	.avatar {
 		width: 54px;
 		height: 54px;
+
 		img {
 			width: 100%;
 			height: 100%;
@@ -71,6 +84,7 @@ import { GithubOutlined } from "@ant-design/icons-vue";
 		margin: 0;
 		display: flex;
 		list-style: none;
+
 		.item {
 			color: var(--houdini-routine);
 			font-weight: 600;
@@ -81,6 +95,7 @@ import { GithubOutlined } from "@ant-design/icons-vue";
 			border-radius: 6px;
 			overflow: hidden;
 			transition: color 0.3s ease;
+
 			span {
 				display: block;
 				z-index: 1;
@@ -89,6 +104,7 @@ import { GithubOutlined } from "@ant-design/icons-vue";
 				font-size: 14px;
 				user-select: none;
 			}
+
 			&::before {
 				content: "";
 				position: absolute;
@@ -107,12 +123,14 @@ import { GithubOutlined } from "@ant-design/icons-vue";
 
 			&:hover {
 				color: var(--houdini-hover);
+
 				&:before {
 					opacity: 0.8;
 					transition-duration: 0.8s;
 					transform: translate3d(-50%, -50%, 0) scale3d(1.2, 1.2, 1.2);
 				}
 			}
+
 			.a-tag {
 				color: inherit;
 				text-decoration: none;
