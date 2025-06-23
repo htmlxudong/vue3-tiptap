@@ -35,15 +35,35 @@
 - 粗体
 
 
-## 🔨 基础使用
+## 🔨 快速使用
 
 ```shell
+npm i vue3-tiptap 
+or
+pnpm  i vue3-tiptap
 
-# github
-git clone https://github.com/htmlxudong/vue3-tiptap.git
+```
 
-# gitee
-git clone https://gitee.com/xd_web/vue3-tiptap.git
+- Introduce in components
+```vue
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import Vue3TipTap from 'vue3-tiptap'
+import 'vue3-tiptap/dist/vue3-tiptap.css'
+
+const content = ref('<h1>欢迎使用 Vue3 TipTap 富文本编辑器！</h1><p>这是一个功能强大的富文本编辑器，支持多种格式化选项。</p>')
+const handleUpdate = (newContent: string) => {
+  console.log('内容更新:', newContent)
+}
+
+</script>
+
+<template>
+    <div class="editor-container">
+      <Vue3TipTap v-model:content="content" @update:content="handleUpdate" />
+    </div>
+</template>
 
 ```
 
