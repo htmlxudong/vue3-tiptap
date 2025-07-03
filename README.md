@@ -69,6 +69,8 @@ const handleUpdate = (newContent: string) => {
 
 ## installation dependency 📦
 
+`Please install first Ant Design Vue` [Portal](https://www.antdv.com/components/overview)
+
 ```
 pnpm install or npm install
 
@@ -98,7 +100,7 @@ The project is mainly based on the following projects
 - [tiptap document](https://tiptap.dev/docs/editor/introduction)
 - [prosemirror](https://prosemirror.net/)
 
-## changelog 📄
+## Change Log 📄
 
 - 2024.03.15 version 1.0.0
 - 2025.04.15 version 2.0.0 Refactor project using TypeScript

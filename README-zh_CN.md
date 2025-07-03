@@ -37,6 +37,9 @@
 
 ## 🔨 快速使用
 
+`请先安装 Ant Design Vue` [传送门](https://www.antdv.com/components/overview)
+
+
 ```shell
 npm i vue3-tiptap 
 or
