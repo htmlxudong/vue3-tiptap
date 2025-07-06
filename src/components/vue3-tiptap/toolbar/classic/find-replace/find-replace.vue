@@ -72,21 +72,27 @@ const updateStatus = (options: optionsType) => {
 	totalCount.value = options.decorations.length;
 	currentCount.value = options.activeIndex + 1;
 };
+
 const findNext = () => {
 	props.editor.chain().findNext().search(searchTerm.value).run();
 };
+
 const findPrevious = () => {
 	props.editor.chain().findPrev().search(searchTerm.value).run();
 };
+
 const replace = () => {
 	props.editor.chain().replace(replaceTerm.value).run();
 };
+
 const replaceAll = () => {
 	props.editor.chain().replaceAll(replaceTerm.value).run();
 };
+
 const performSearch = debounce(() => {
 	props.editor.chain().search(searchTerm.value).run();
 }, 1000);
+
 const handleClose = () => {
 	clearStatus();
 	props.closeModal();

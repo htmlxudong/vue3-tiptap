@@ -10,13 +10,14 @@
 import { ref } from 'vue';
 import pdfDemo from './pdf-demo.vue'
 import vmodelDemo from './vmodel-demo.vue'
-
+import searchDemo from './search-demo.vue'
 
 const activeKey = ref('vmodelDemo');
 
 const tabsCom = {
     vmodelDemo,
-    pdfDemo
+    pdfDemo,    
+    searchDemo
 }
 
 

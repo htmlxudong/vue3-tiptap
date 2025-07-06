@@ -1,6 +1,6 @@
 {
   "name": "vue3-tiptap",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "type": "module",
   "main": "dist/vue3-tiptap.umd.cjs",
   "module": "dist/vue3-tiptap.js",
@@ -30,7 +30,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc -b && vite build",
+    "build": "vue-tsc -p tsconfig.lib.json && vite build",
     "preview": "vite preview",
     "format": "prettier --write \"src/**/*.{js,ts,json,tsx,css,less,scss,vue,html,md}\"",
     "test": "vitest",
@@ -61,10 +61,10 @@
     "sass": "^1.86.0"
   },
   "peerDependencies": {
-    "vue": "^3.0.0",
-    "ant-design-vue": "^4.0.0",
+    "@tiptap/starter-kit": "^2.0.0",
     "@tiptap/vue-3": "^2.0.0",
-    "@tiptap/starter-kit": "^2.0.0"
+    "ant-design-vue": "^4.0.0",
+    "vue": "^3.0.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",
@@ -77,10 +77,13 @@
     "@vue/tsconfig": "^0.7.0",
     "happy-dom": "^18.0.1",
     "jsdom": "^26.1.0",
+    "rollup-plugin-visualizer": "^6.0.3",
     "typescript": "~5.7.2",
     "vite": "^6.2.0",
+    "vite-bundle-analyzer": "^1.0.0",
     "vite-plugin-dts": "^4.5.4",
     "vitest": "^3.2.4",
+    "vue-router": "^4.5.1",
     "vue-tsc": "^2.2.4"
   }
 }

@@ -1,296 +1,226 @@
-import { Extension } from "@tiptap/core";
-import { Plugin, PluginKey, EditorState, Transaction } from "@tiptap/pm/state";
+import { Extension, Editor } from "@tiptap/core";
+import { Plugin, PluginKey } from "@tiptap/pm/state";
+import type { Transaction } from "@tiptap/pm/state";
 import { Decoration, DecorationSet } from "@tiptap/pm/view";
 import emitter from "@/utils/EventEmitter";
+import { Node } from "@tiptap/pm/model";
+
+const SEARCH_HIGHLIGHT_CLASS = "search-highlight";
+const CURRENT_MATCH_CLASS = "search-highlight-current";
+
+function findMatches(doc: Node, query: string, activeIndex: number) {
+	const decorations: Decoration[] = [];
+	const regex = new RegExp(query, "gi");
+
+	doc.descendants((node: Node, pos) => {
+		if (!node.isText || !node.text) return;
+		const text = node.text as string;
+		let match;
+
+		while ((match = regex.exec(text)) !== null) {
+			const from = pos + match.index;
+			const to = from + match[0].length;
+			const decoration = Decoration.inline(from, to, {
+				class: decorations.length === activeIndex ? CURRENT_MATCH_CLASS : SEARCH_HIGHLIGHT_CLASS
+			});
+			if (decoration) {
+				decorations.push(decoration);
+			}
+		}
+	});
+	return decorations;
+}
+
+const searchPluginKey = new PluginKey<{ decorationSet: DecorationSet }>("search");
+let searchPlugin: Plugin = new Plugin({
+	state: {
+		init() {
+			return {
+				decorationSet: DecorationSet.empty
+			};
+		},
+		apply(tr: Transaction, state) {
+			const searchMeta = tr.getMeta(searchPluginKey);
+			if (searchMeta) {
+				return {
+					decorationSet: DecorationSet.create(tr.doc, searchMeta.decorations)
+				};
+			}
+			// 如果文档改变，更新现有装饰的位置
+			return {
+				decorationSet: state.decorationSet.map(tr.mapping, tr.doc)
+			};
+		}
+	},
+	props: {
+		decorations(state) {
+			return searchPlugin.getState(state).decorationSet;
+		}
+	}
+});
 
 declare module "@tiptap/core" {
 	interface Commands<ReturnType> {
-		search: {
-			search: (query: string) => ReturnType;
+		searchreplace: {
+			search: (data: string) => ReturnType;
 			findNext: () => ReturnType;
 			findPrev: () => ReturnType;
-			replace: (replacement: string) => ReturnType;
-			replaceAll: (replacement: string) => ReturnType;
 			clearSearch: () => ReturnType;
+			replace: () => ReturnType;
+			replaceAll: () => ReturnType;
 		};
 	}
 }
 
-interface SearchState {
-	query: string | null;
-	results: { from: number; to: number }[];
-	currentIndex: number | null;
-	decorationSet: DecorationSet;
+interface SearchReplaceOptions {
+	activeIndex: number;
+	decorations: Decoration[];
+	currentQuery: string;
 }
 
-const searchPluginKey = new PluginKey("search");
-
-function escapeRegex(string: string): string {
-	return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
-function findResults(doc: any, query: string): { from: number; to: number }[] {
-	if (!query) {
-		return [];
-	}
-	const results: { from: number; to: number }[] = [];
-	const regex = new RegExp(escapeRegex(query), "gi");
-
-	doc.descendants((node: any, pos: number) => {
-		if (!node.isText) {
-			return;
-		}
-
-		let match;
-		while ((match = regex.exec(node.text)) !== null) {
-			results.push({
-				from: pos + match.index,
-				to: pos + match.index + match[0].length
-			});
-		}
-	});
-
-	return results;
-}
-
-function createDecorations(
-	doc: any,
-	results: { from: number; to: number }[],
-	currentIndex: number | null,
-	searchClass: string,
-	searchActiveClass: string
-): DecorationSet {
-	if (!results.length) {
-		return DecorationSet.empty;
-	}
-	const decorations = results.map((r, i) =>
-		Decoration.inline(r.from, r.to, {
-			class: `${searchClass} ${i === currentIndex ? searchActiveClass : ""}`
-		})
-	);
-
-	return DecorationSet.create(doc, decorations);
-}
-
-const SearchAndReplace = Extension.create({
-	name: "search",
+const searchReplace = Extension.create<SearchReplaceOptions>({
+	name: "searchreplace",
 
 	addOptions() {
 		return {
-			searchClass: "search-highlight",
-			searchActiveClass: "search-highlight-active"
+			activeIndex: 0,
+			decorations: [],
+			currentQuery: ""
 		};
 	},
 
-	addProseMirrorPlugins() {
-		const self = this;
-
-		return [
-			new Plugin({
-				key: searchPluginKey,
-				state: {
-					init(): SearchState {
-						return {
-							query: null,
-							results: [],
-							currentIndex: null,
-							decorationSet: DecorationSet.empty
-						};
-					},
-					apply(tr: Transaction, oldState: SearchState): SearchState {
-						const meta = tr.getMeta(searchPluginKey);
-
-						if (!meta) {
-							if (tr.docChanged && oldState.query) {
-								const results = findResults(tr.doc, oldState.query);
-								const decorationSet = createDecorations(
-									tr.doc,
-									results,
-									oldState.currentIndex,
-									self.options.searchClass,
-									self.options.searchActiveClass
-								);
-
-								emitter.emit("search", {
-									activeIndex: oldState.currentIndex,
-									decorations: results
-								});
-
-								return { ...oldState, results, decorationSet };
-							}
-							return oldState;
-						}
-
-						const newState: SearchState = { ...oldState, ...meta };
-
-						if (meta.query !== undefined || meta.results !== undefined || meta.currentIndex !== undefined) {
-							const results = meta.results === undefined ? oldState.results : meta.results;
-							const query = meta.query === undefined ? oldState.query : meta.query;
-							const currentIndex = meta.currentIndex === undefined ? oldState.currentIndex : meta.currentIndex;
-
-							if (query) {
-								newState.decorationSet = createDecorations(
-									tr.doc,
-									results,
-									currentIndex,
-									self.options.searchClass,
-									self.options.searchActiveClass
-								);
-							} else {
-								newState.decorationSet = DecorationSet.empty;
-							}
-						}
-
-						return newState;
-					}
-				},
-				props: {
-					decorations(state: EditorState) {
-						const pluginState = searchPluginKey.getState(state);
-						return pluginState ? pluginState.decorationSet : DecorationSet.empty;
-					}
-				}
-			})
-		];
-	},
-
+	/**
+	 * @param {string} dispatch -如果调度已通过，请执行它们的效果，可能通过将事务传递给调度
+	 * @returns
+	 */
+	//@ts-ignore
 	addCommands() {
 		return {
 			search:
 				(query: string) =>
-				({ tr, dispatch }) => {
-					if (!query) {
-						if (dispatch) {
-							tr.setMeta(searchPluginKey, {
-								query: null,
-								results: [],
-								currentIndex: null
-							});
-							emitter.emit("search", {
-								activeIndex: -1,
-								decorations: []
-							});
+				({ dispatch, tr }) => {
+					if (!query.trim()) return false;
+					this.options.currentQuery = query;
+					if (dispatch) {
+						try {
+							const decorations = findMatches(tr.doc, query, this.options.activeIndex);
+							this.options.decorations = decorations.map(item => item);
+							emitter.emit("search", this.options);
+							tr.setMeta(searchPluginKey, { decorations });
+						} catch (error) {
+							console.error("[@warn/search-replace] Search error:", error);
 						}
-						return true;
-					}
-
-					const results = findResults(tr.doc, query);
-					if (dispatch) {
-						tr.setMeta(searchPluginKey, {
-							query,
-							results,
-							currentIndex: results.length ? 0 : null
-						});
-
-						emitter.emit("search", {
-							activeIndex: results.length ? 0 : -1,
-							decorations: results
-						});
-					}
-					return true;
-				},
-			clearSearch:
-				() =>
-				({ tr, dispatch }) => {
-					if (dispatch) {
-						tr.setMeta(searchPluginKey, {
-							query: null,
-							results: [],
-							currentIndex: null
-						});
-						emitter.emit("search", {
-							activeIndex: -1,
-							decorations: []
-						});
 					}
 					return true;
 				},
 			findNext:
 				() =>
-				({ tr, dispatch, state }) => {
-					const searchState = searchPluginKey.getState(state);
-					if (!searchState || !searchState.results.length) return false;
-
-					const currentIndex = searchState.currentIndex ?? -1;
-					const nextIndex = (currentIndex + 1) % searchState.results.length;
-
+				({ dispatch }) => {
 					if (dispatch) {
-						tr.setMeta(searchPluginKey, { currentIndex: nextIndex });
-						emitter.emit("search", {
-							activeIndex: nextIndex,
-							decorations: searchState.results
-						});
+						this.options.activeIndex =
+							this.options.activeIndex < this.options.decorations.length - 1
+								? this.options.activeIndex + 1
+								: this.options.decorations.length - 1;
 					}
 					return true;
 				},
 			findPrev:
 				() =>
-				({ tr, dispatch, state }) => {
-					const searchState = searchPluginKey.getState(state);
-					if (!searchState || !searchState.results.length) return false;
-
-					const currentIndex = searchState.currentIndex ?? 0;
-					const prevIndex = (currentIndex - 1 + searchState.results.length) % searchState.results.length;
-
+				({ dispatch }) => {
 					if (dispatch) {
-						tr.setMeta(searchPluginKey, { currentIndex: prevIndex });
-						emitter.emit("search", {
-							activeIndex: prevIndex,
-							decorations: searchState.results
-						});
+						this.options.activeIndex =
+							this.options.activeIndex - 1 <= 0 ? 0 : this.options.activeIndex - 1;
+					}
+					return true;
+				},
+			clearSearch:
+				() =>
+				({ dispatch, tr }) => {
+					if (dispatch) {
+						this.options.activeIndex = 0;
+						this.options.decorations = [];
+						tr.setMeta(searchPluginKey, { decorations: [] });
 					}
 					return true;
 				},
 			replace:
-				(replacement: string) =>
-				({ tr, dispatch, state, editor }) => {
-					const searchState = searchPluginKey.getState(state);
-					if (!searchState || searchState.currentIndex === null || !searchState.results.length) return false;
-
-					const { from, to } = searchState.results[searchState.currentIndex];
-
-					if (dispatch) {
-						tr.replaceWith(from, to, editor.schema.text(replacement));
-
-						const newResults = findResults(tr.doc, searchState.query!);
-						const newCurrentIndex = searchState.currentIndex < newResults.length ? searchState.currentIndex : newResults.length > 0 ? newResults.length - 1 : null;
-
-						tr.setMeta(searchPluginKey, {
-							results: newResults,
-							currentIndex: newCurrentIndex
-						});
-						emitter.emit("search", {
-							activeIndex: newCurrentIndex,
-							decorations: newResults
-						});
+				(replaceText: string) =>
+				({
+					dispatch,
+					tr,
+					editor
+				}: {
+					dispatch?: (tr: Transaction) => void;
+					tr: Transaction;
+					editor: Editor;
+				}) => {
+					if (!replaceText.trim()) return false;
+					const query = this.options.currentQuery;
+					const decorations = findMatches(tr.doc, query, this.options.activeIndex);
+					if (dispatch && decorations.length > 0) {
+						const currentDeco = decorations[this.options.activeIndex];
+						if (currentDeco) {
+							// 替换当前匹配项
+							tr.replaceWith(currentDeco.from, currentDeco.to, editor.schema.text(replaceText));
+							this.options.decorations = decorations.map(item => item);
+							tr.setMeta(searchPluginKey, { decorations });
+							emitter.emit("search", this.options);
+						}
+						if (this.options.activeIndex === decorations.length - 1) {
+							this.options.activeIndex = 0;
+						}
 					}
+
 					return true;
 				},
 			replaceAll:
-				(replacement: string) =>
-				({ tr, dispatch, state, editor }) => {
-					const searchState = searchPluginKey.getState(state);
-					if (!searchState || !searchState.results.length) return false;
+				(replaceText: string) =>
+				({
+					dispatch,
+					tr,
+					editor
+				}: {
+					dispatch?: (tr: Transaction) => void;
+					tr: Transaction;
+					editor: Editor;
+				}) => {
+					if (!replaceText.trim()) return false;
+					if (dispatch && this.options.decorations.length > 0) {
+						// 从后往前替换，避免位置偏移
+						[...this.options.decorations]
+							.sort((a, b) => b.from - a.from)
+							.forEach(deco => {
+								tr.replaceWith(deco.from, deco.to, editor.schema.text(replaceText));
+							});
 
-					if (dispatch) {
-						[...searchState.results].reverse().forEach(({ from, to }) => {
-							tr.replaceWith(from, to, editor.schema.text(replacement));
-						});
-
-						tr.setMeta(searchPluginKey, {
-							query: null,
-							results: [],
-							currentIndex: null
-						});
-						emitter.emit("search", {
-							activeIndex: -1,
-							decorations: []
-						});
+						// 清空搜索状态
+						this.options.activeIndex = 0;
+						this.options.decorations = [];
+						tr.setMeta(searchPluginKey, { decorations: [] });
+						emitter.emit("search", this.options);
 					}
 					return true;
 				}
 		};
+	},
+	addProseMirrorPlugins() {
+		return [searchPlugin];
+	},
+	// 富文本编辑器内容变化
+	//@ts-ignore
+	onUpdate({ editor }: { editor: Editor }) {
+		const { currentQuery, activeIndex } = this.options;
+		if (currentQuery) {
+			const decorations = findMatches(editor.state.doc, currentQuery, activeIndex);
+			this.options.decorations = decorations;
+			if (this.options.activeIndex > this.options.decorations.length - 1)
+				this.options.activeIndex = this.options.decorations.length - 1;
+			const tr = editor.state.tr;
+			tr.setMeta(searchPluginKey, { decorations });
+			editor.view.dispatch(tr);
+			emitter.emit("search", this.options);
+		}
 	}
 });
 
-export default SearchAndReplace;
+export default searchReplace;

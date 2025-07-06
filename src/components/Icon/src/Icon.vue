@@ -7,13 +7,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { getIcon } from "./Icon";
-
-type Size = number | string | undefined;
-interface IconType {
-	name: string;
-	color?: string;
-	size?: Size;
-}
+import type { IconType, Size } from "./types";
 const props = defineProps<IconType>();
 
 const addUnit = (size: Size, defaultSize = "16px") => {

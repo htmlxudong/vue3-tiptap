@@ -92,7 +92,7 @@ const extensions = [
 	CustomBulletList,
 	CustomIndent,
 	CodeBlockLights.configure({ lowlight }), 
-	// SearchReplace,
+	SearchReplace,
 	Iframe,
 	CustomTextStyle,
 	FormatBrush,
@@ -112,7 +112,8 @@ const editor = useEditor({
 	}
 });
 
-// 暴露编辑器实例
+
+
 defineExpose({
 	editor
 });

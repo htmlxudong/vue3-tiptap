@@ -1,0 +1,35 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.lib.tsbuildinfo",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "strict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "dist"
+  },
+  "include": [
+    "src/components/vue3-tiptap/**/*.ts", 
+    "src/components/vue3-tiptap/**/*.tsx", 
+    "src/components/vue3-tiptap/**/*.vue",
+    "src/components/Icon/**/*.ts",
+    "src/utils/**/*.ts",
+    "src/types/**/*.ts",
+    "src/styles/**/*.scss",
+    "src/vite-env.d.ts"
+  ],
+  "exclude": [
+    "src/router/**/*",
+    "src/views/**/*",
+    "src/plugin/**/*",
+    "src/hooks/**/*",
+    "src/main.ts"
+  ]
+} 
