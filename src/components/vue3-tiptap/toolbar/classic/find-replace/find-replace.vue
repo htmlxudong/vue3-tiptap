@@ -49,7 +49,6 @@
 import { CloseOutlined, DragOutlined } from "@ant-design/icons-vue";
 import { ref } from "vue";
 import { useDraggable } from "@vueuse/core";
-import { useTemplateRef } from "vue";
 import emitter from "@/utils/EventEmitter";
 import { debounce } from "lodash-es";
 
@@ -60,7 +59,7 @@ interface optionsType {
 
 const props = defineProps(["modelValue", "editor", "visible", "closeModal"]);
 
-const el = useTemplateRef<HTMLElement>("el");
+const el = ref<HTMLElement>();
 const searchTerm = ref("");
 const replaceTerm = ref("");
 const totalCount = ref(0);
@@ -107,9 +106,11 @@ const clearStatus = () => {
 };
 
 // draggable modal
-const { x, y, style } = useDraggable(el, {
+const { style } = useDraggable(el, {
 	initialValue: { x: 100, y: 100 }
 });
+
+
 
 const activeKey = ref(1);
 const toggleTab = (activeIndex: number) => {
