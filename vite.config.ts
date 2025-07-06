@@ -30,12 +30,12 @@ export default defineConfig({
       exclude: ['src/components/vue3-tiptap/**/*.test.ts']
     }),
     deleteFilesPlugin(),
-    visualizer({
-      filename: 'dist/stats.html', // 输出分析报告文件
-      open: true,                  // 构建后自动打开浏览器
-      gzipSize: true,
-      brotliSize: true
-    })
+    // visualizer({
+    //   filename: 'dist/stats.html', // 输出分析报告文件
+    //   open: true,                  // 构建后自动打开浏览器
+    //   gzipSize: true,
+    //   brotliSize: true
+    // })
   ],
   resolve: {
     alias: {
@@ -58,17 +58,17 @@ export default defineConfig({
         "vue",
         "ant-design-vue",
         "vue-router",
-        "@tiptap/vue-3",
-        "@tiptap/starter-kit",
-        "@tiptap/pm"
+        // "@tiptap/vue-3",
+        // "@tiptap/starter-kit",
+        // "@tiptap/pm"
       ],
       output: {
         globals: {
           vue: "Vue",
           "ant-design-vue": "antd",
-          "@tiptap/vue-3": "TiptapVue3",
-          "@tiptap/starter-kit": "StarterKit",
-          "@tiptap/pm": "TiptapPm",
+          // "@tiptap/vue-3": "TiptapVue3",
+          // "@tiptap/starter-kit": "StarterKit",
+          // "@tiptap/pm": "TiptapPm",
         }
       }
     }

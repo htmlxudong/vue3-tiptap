@@ -61,10 +61,11 @@
     "sass": "^1.86.0"
   },
   "peerDependencies": {
+    "@tiptap/pm": "^2.0.0",
     "@tiptap/starter-kit": "^2.0.0",
     "@tiptap/vue-3": "^2.0.0",
-    "ant-design-vue": "^4.0.0",
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "ant-design-vue": "^4.0.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",
